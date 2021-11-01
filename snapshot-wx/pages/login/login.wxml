@@ -1,0 +1,18 @@
+<view class="login-warp">
+<form>
+<view class="warp-pos">
+ <input placeholder="账号" type="text" class="userId" bindinput="getUserName" value="{{userName}}"/>
+  <image src="../../icons/shutdown.png" class="img-pos" hidden="{{flag}}" bindtap="clear"></image>
+</view>
+<view class="warp-pos">
+<input placeholder="密码" class="userPwd" password bindinput="getUserPwd" value="{{userPwd}}"/>
+<image src="../../icons/nosee.png" class="img-pos"></image>
+</view>
+
+<button class="login-btn" bindtap="login">登录</button>
+
+</form>
+
+</view>
+
+

@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/login/login",
+    "pages/member/index",
+    "pages/member/account",
+    "pages/member/password",
+    "pages/member/comment",
+    "pages/member/favorite",
+    "pages/member/my",
+    "pages/news/list",
+    "pages/news/show",
+    "pages/news/post",
+    "pages/news/comment"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "POSCMS小程序Demo",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff"
+  },
+  "tabBar": {
+    "color": "#9999",
+    "selectedColor": "#ff402e",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "icons/home.png",
+        "selectedIconPath": "icons/home-on.png"
+      },
+      {
+        "pagePath": "pages/news/list",
+        "text": "新闻",
+        "iconPath": "icons/news.png",
+        "selectedIconPath": "icons/news-on.png"
+      },
+      {
+        "pagePath": "pages/news/post",
+        "text": "发布",
+        "iconPath": "icons/news.png",
+        "selectedIconPath": "icons/news-on.png"
+      },
+      {
+        "pagePath": "pages/member/index",
+        "text": "会员",
+        "iconPath": "icons/user.png",
+        "selectedIconPath": "icons/user-on.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

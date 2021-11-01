@@ -1,0 +1,63 @@
+@import "../news/show.wxss";
+.all-pl{
+    font-size: 22rpx;
+    background: #fff;
+}
+.pl-warp{
+    padding-top: 30rpx;
+    padding-bottom: 30rpx;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+    overflow: hidden;
+}
+.admin{
+    width: 55rpx;
+    height: 55rpx;
+    border-radius: 50%;
+    float: left;
+}
+.admin image{
+    width: 48rpx;
+    height: 48rpx;
+}
+.commentUser{
+    float: left;
+    margin-left: 20rpx;
+    color: #389fcf;
+    font-size: 36rpx;
+}
+.res-time{
+    font-size: 30rpx;
+    color: #a9a9a9;
+}
+.zan{
+    float: right;
+    font-size: 26rpx;
+     color: #a9a9a9;
+}
+.zan-flex{
+    display: flex;
+    align-items: center;
+    
+}
+.zan image{
+    width: 27rpx;
+    height: 27rpx;
+    padding-top: 0px;
+    padding-left: 5px;
+}
+.pl-text{
+    padding-top: 15rpx;
+    font-size: 34rpx;
+    line-height: 50rpx;
+    margin-left: 70rpx;
+}
+.isay{
+    width: 450rpx;
+}
+.save{
+    width: 120rpx;
+    height: 55rpx;
+    line-height: 55rpx;
+    font-size: 25rpx;
+}

@@ -1,0 +1,33 @@
+
+
+<view class="view-postion">
+<view class="news-title">
+  {{content.title}}
+ <view>
+ <text class="news-ctime">{{content.inputtime}}</text>
+ <text class="news-local">{{content.cat.name}}</text>
+ <text class="news-count">浏览{{content.hits}}次</text>
+ </view>
+</view>
+
+<view class="news-zw">
+    <import src="../../wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:data.nodes}}" />
+</view>
+</view>
+
+<view class="pl-bar">
+    <view  class="isay" bindtap="getCommentList">我来说两句</view>
+    <view class="pl-flex"  bindtap="getCommentList">
+      <image src="../../icons/news-pl.png"></image>
+      <text class="conut-22">{{content.comments}}</text>
+    </view>
+   
+    <view  class="pl-flex" bindtap="collect">
+     <image src="{{collectImg}}"></image>
+    </view>
+</view>
+
+
+
+

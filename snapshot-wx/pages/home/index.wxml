@@ -1,0 +1,43 @@
+<view class="index-body">
+
+<swiper class="index-banner" indicator-dots="true" autoplay="true" interval="5000" indicator-color="#fff" indicator-active-color="#e7505a" >
+<block wx:for="{{banners}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" />
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="index-icons">
+    <view class="flex-item" wx:for="{{icons}}">
+    <navigator url="{{item.url}}">
+      <image class='image-icon' src="{{item.icon}}" />
+      <view class='text-icon'>{{item.name}}</view>
+    </navigator>
+    </view>
+</view>
+
+
+ <view class="index-row">
+  <view class="index-row-index">最新新闻</view>
+  <view class="fabu-row">
+    
+    <block wx:for="{{fabuData}}" wx:for-item="news">
+   <navigator url="../news/show?id={{news.id}}">
+   <view class="news-view">
+     <image class='news-thumb' src="{{news.thumb}}" wx:if="{{news.thumb!=''}}"/>
+     <view class="news-title">
+          {{news.title}}
+     </view>  
+   </view>
+   </navigator>
+   </block>
+
+
+  </view>
+</view>
+
+
+
+
+</view>

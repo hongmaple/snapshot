@@ -1,0 +1,43 @@
+<scroll-view class="news-item" scroll-y="true">
+<view class="view-postion">
+<view class="news-title">
+  {{content.title}}
+ <view>
+ <text class="news-ctime">{{content.inputtime}}</text>
+ <text class="news-count">评论{{content.comments}}次</text>
+ </view>
+</view>
+<view class="news-zw">
+      <block wx:for="{{listData}}">
+        <view class="pl-warp">
+        <view style="overflow:hidden">
+    
+         <view class="commentUser">
+         <view wx:if="{{item.author==''}}">匿名用户</view>
+           <view wx:else>{{item.author}}</view>
+         </view>
+         <view class="zan">
+          <view class="zan-flex">
+          <text class="res-time">{{item.inputtime}}</text>
+          </view>
+         </view>
+         </view>
+
+          <view class="pl-text">{{item.content}}</view>
+        </view>
+      </block>
+</view>
+</view>
+</scroll-view>
+
+<view class="pl-bottom">
+<view hidden="{{hidden}}" class="hidden" wx:if="{{hasMore!='true'}}"><image src="../../icons/waiting.gif" /> 正在加载....</view>
+<view hidden="{{hidden}}" class="hidden" wx:else>没有更多数据了....</view>
+</view>
+
+<view class="pl-bar">
+    <input placeholder="我来说两句..." class="isay" bindinput="getText"/>
+     <button bindtap="save" class="save">发送</button>
+</view>
+
+

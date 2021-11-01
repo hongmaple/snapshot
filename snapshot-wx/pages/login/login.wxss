@@ -1,0 +1,92 @@
+
+.login-warp{
+    padding: 100rpx 65rpx 0 65rpx;
+}
+
+.userId{
+    box-sizing: border-box;
+    border: 1px solid #d0d0d0;
+    border-radius: 10rpx;
+    font-size: 26rpx;
+    padding-left: 20rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+}
+.userPwd{
+     box-sizing: border-box;
+    border: 1px solid #d0d0d0;
+    border-radius: 10rpx;
+    font-size: 26rpx;
+    padding-left: 20rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    margin-top: 30rpx;
+    margin-bottom: 50rpx;
+}
+.warp-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40rpx;
+}
+.warp-flex checkbox{
+    font-size: 22rpx;
+}
+.warp-flex navigator{
+ font-size: 22rpx;
+}
+.login-btn{
+    background-color: #ff402e;
+    color: white
+}
+.reg-btn{
+    background-color: #45a8dc;
+    color: white;
+    margin-top: 30rpx;
+}
+.warp-pos{
+    position: relative;
+
+}
+.warp-pos image{
+    position: absolute;
+    top: 50%;
+    margin-top:-15rpx;
+    right: 20rpx;
+    width: 30rpx;
+    height: 30rpx;
+    z-index: 999;
+}
+.fast-login{
+    position: relative;
+    border-bottom: 1px solid #d0d0d0;
+     text-align: center;
+}
+.fast-login text{
+    position: absolute;
+    top: -12rpx;
+    left: 40%;
+    font-size:22rpx;
+    padding: 0 15rpx;
+    background-color: white;
+}
+.wx-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60rpx;
+}
+.wx-border{
+    width: 88rpx;
+    height: 88rpx;
+    box-sizing: border-box;
+    border: 1px solid #09bb07;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wx-flex image{
+    width: 50rpx;
+    height: 50rpx;
+}

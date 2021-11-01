@@ -1,0 +1,17 @@
+
+<view class="login-warp">
+<form bindsubmit="formBindsubmit">
+<view class="login-username-info">
+{{member.username}}
+</view>
+
+<view class="warp-pos">
+<input placeholder="昵称" class="userPwd" name="name" value="{{member.name}}" />
+</view>
+
+
+<button class="login-btn" formType="submit">修改资料</button>
+</form>
+
+</view>
+

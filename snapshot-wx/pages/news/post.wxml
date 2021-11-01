@@ -1,0 +1,22 @@
+<view class="login-warp">
+<form bindsubmit="formSubmit">
+<view class="warp-pos">
+ <input  placeholder="文章标题" type="text" class="userPwd" name="title"/>
+</view>
+
+<view class="">
+  <textarea class="textarea" placeholder="文章内容" name="content" />
+
+</view>
+
+<view class="warp-pos">
+
+
+<button  bindtap="uploadFile">上传缩略图</button>
+</view>
+
+<button style="margin-top:30rpx" class="login-btn" formType="submit" bindtap="add">发布文章</button>
+</form>
+
+</view>
+

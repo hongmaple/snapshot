@@ -1,0 +1,33 @@
+
+<view class="user-info" bindtap="userInfo">
+  <image src="{{avatar}}" class="user-logo"></image>
+   <view class="user-name" wx:if="{{member}}">
+
+    <view class="user-un">{{member.username}}</view>
+    <view class="user-jb">金币：{{member.score}} ，余额：¥{{member.money}}元</view>
+
+   </view>
+   <view class="user-name" wx:else>
+      <view class="user-un">单击登录</view>
+   </view>
+
+    <image src="../../icons/right-back.png" class="r-back"></image>
+</view>
+
+
+<block wx:for="{{columnList}}">
+  <navigator url="{{item.url}}" hidden="{{flag}}">
+    <view class="user-item">
+      <image src="{{item.iconPath}}" class="user-icon"></image>
+      <text class=".user-column">{{item.columnName}}</text>
+    <image src="../../icons/right-back.png" class="r-back"></image>
+    </view>
+    </navigator>
+</block>
+
+
+<view bindtap="downLogin" class="user-item" >
+ <image src="../../icons/downLogin.png" class="user-icon"></image>
+ <text class=".user-column">退出登录</text>
+<image src="../../icons/right-back.png" class="r-back"></image>
+</view>

@@ -1,0 +1,39 @@
+page{
+    border-top: 1px solid #e0e0e0;
+}
+.pl-box{
+    padding: 30rpx 0;
+    margin: 0 30rpx;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.flex-box{
+    display: flex;
+    justify-content:space-between;
+    font-size: 26rpx;
+    padding-top:30rpx;
+}
+.txt-over{
+    max-width:510rpx;
+    text-overflow:ellipsis;
+    overflow: hidden;
+}
+.pay-wfk {
+  font-size: 26rpx;
+  font-weight: 300;
+  padding: 5rpx 10rpx;
+  color: #fff;
+  border-radius: 5rpx;
+  background-color: #ed6b75;
+}
+.pay-yfk {
+  font-size: 26rpx;
+  font-weight: 300;
+  padding: 5rpx 10rpx;
+  border-radius: 5rpx;
+  color: #fff;
+  background-color: #36c6d3;
+}
+.pl-bottom {
+    margin-top:30rpx;
+}
