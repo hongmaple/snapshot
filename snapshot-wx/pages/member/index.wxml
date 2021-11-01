@@ -1,10 +1,10 @@
 
 <view class="user-info" bindtap="userInfo">
   <image src="{{avatar}}" class="user-logo"></image>
-   <view class="user-name" wx:if="{{member}}">
+   <view class="user-name" wx:if="{{token}}">
 
-    <view class="user-un">{{member.username}}</view>
-    <view class="user-jb">金币：{{member.score}} ，余额：¥{{member.money}}元</view>
+    <view class="user-un">{{user.username}}</view>
+    <view class="user-jb">积分：{{user.score}}</view>
 
    </view>
    <view class="user-name" wx:else>

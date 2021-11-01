@@ -17,6 +17,7 @@ Page({
   data: {
     token: token,
     avatar: avatar,
+    user: {},
     columnList: [
       {
         "url": "../member/my",
@@ -52,10 +53,40 @@ Page({
    */
   onLoad: function (options) {
     console.log(token);
-    if (token === "") {
+    if (token == "") {
       // 未登录跳转登录界面
       wx.reLaunch({ url: "../login/login" });
     }
+    //获取当前用户信息
+    wx.request({
+      url: app.globalData.mobile_api+"/user/info",
+      method: 'post',
+      data: {
+        username: this.data.userName,
+        password: this.data.userPwd
+      },
+      header: {
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
+        "Authorization": token
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx.clearStorageSync();
+          wx.setStorageSync('user', res.data.data);
+          console.log(res.data.data)
+          this.setData({
+            user: res.data.data
+          });
+        }
+        else {
+            wx.showModal({
+                showCancel: false,
+                content: res.data.message
+            })
+        }
+      }
+    })
   },
   downLogin: function () {
     wx.showModal({

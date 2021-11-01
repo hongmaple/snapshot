@@ -2,6 +2,7 @@
   "pages": [
     "pages/home/index",
     "pages/login/login",
+    "pages/register/register",
     "pages/member/index",
     "pages/member/account",
     "pages/member/password",
@@ -16,7 +17,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "POSCMS小程序Demo",
+    "navigationBarTitleText": "snapshot",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#fff"
   },
@@ -44,7 +45,7 @@
       },
       {
         "pagePath": "pages/member/index",
-        "text": "会员",
+        "text": "我的",
         "iconPath": "icons/user.png",
         "selectedIconPath": "icons/user-on.png"
       }

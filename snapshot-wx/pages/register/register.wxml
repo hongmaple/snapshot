@@ -9,8 +9,8 @@
 <image src="../../icons/nosee.png" class="img-pos"></image>
 </view>
 
-<button class="login-btn" bindtap="login">登录</button>
-<view class="foot"><text style="color:#d1d1d1">还没有账号吗？</text><text bindtap="register" style="color:#327CF3">立即注册</text></view>
+<button class="login-btn" bindtap="register">注册</button>
+<view class="foot"><text style="color:#d1d1d1">已有账号？</text><text bindtap="login" style="color:#327CF3">立即登录</text></view>
 
 </form>
 

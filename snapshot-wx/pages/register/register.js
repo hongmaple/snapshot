@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userName: 18976618156,
-    userPwd: 123456,
+    userName: "",
+    userPwd: "",
   },
 
 
@@ -21,15 +21,15 @@ Page({
   getUserPwd: function (e) {
     this.setData({ userPwd: e.detail.value });
   },
-  //登录
-  login:function(){
+  //注册
+  register:function(){
       app.showModel();
     var self = this;
     wx.request({
-      url: app.globalData.mobile_api+"/user/login",
+      url: app.globalData.mobile_api+"/user/register",
       method: 'post',
       data: {
-        username: this.data.userName,
+        phone: this.data.userName,
         password: this.data.userPwd
       },
       header: {
@@ -38,15 +38,12 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 200) {
-          // 登录成功储存会员信息
-          wx.clearStorageSync();
-          wx.setStorageSync('token', res.data.data);
-          // 跳转到会员页面
+          // 跳转到登录页面
           wx.showToast({
-            title: "登录成功",
+            title: "注册成功",
             icon: 'success',
             success: function () {
-              wx.reLaunch({ url: "../member/index" });
+              wx.reLaunch({ url: "../login/login" });
             },
             duration: 2000
           })
@@ -60,10 +57,10 @@ Page({
       }
     })
     },
-      //注册页面
-    register: function () {
-    wx.navigateTo({
-      url: '../register/register',
-    })
-  },
+    //登录页面
+    login: function () {
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
 })

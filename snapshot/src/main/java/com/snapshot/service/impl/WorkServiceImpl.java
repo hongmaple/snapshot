@@ -39,7 +39,7 @@ public class WorkServiceImpl implements WorkService {
             throw new ServiceException("请先登陆",400);
         }
         work.setCreatorId(user.getId());
-        work.setCreatorType(userDao.getById(user.getId).userType);
+        work.setCreatorType(userDao.getById(user.getId()).userType);
         workDao.save(work);
         return work.getId();
     }
