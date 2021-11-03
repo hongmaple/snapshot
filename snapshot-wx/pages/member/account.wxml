@@ -1,14 +1,30 @@
 
 <view class="login-warp">
 <form bindsubmit="formBindsubmit">
-<view class="login-username-info">
-{{member.username}}
-</view>
-
 <view class="warp-pos">
-<input placeholder="昵称" class="userPwd" name="name" value="{{member.name}}" />
+    <text class="black">头像</text>
+    <image src="{{avatar}}" class="user-logo"></image>
+    <image bindtap="uploadFile" src="../../icons/right-back.png" class="r-back"></image>
 </view>
-
+<view class="warp-pos">
+    <text class="black">昵称</text>
+    <input placeholder="昵称" class="userPwd" name="username" value="{{member.username}}" />
+</view>
+<view class="warp-pos">
+    <text class="black">手机号</text>
+    <input placeholder="手机号" class="userPwd" name="phone" value="{{member.phone}}" />
+</view>
+<view class="warp-pos">
+    <text class="black">性别</text>
+    <input placeholder="性别" class="userPwd" name="sex" value="{{member.sex}}" />
+    <!-- <view class="weui-cell__hd">
+            <radio value="男" name="sex" checked="true"/>
+    </view> -->
+</view>
+<view class="warp-pos">
+    <text class="black">年龄</text>
+    <input placeholder="年龄" class="userPwd" name="age" value="{{member.age}}" />
+</view>
 
 <button class="login-btn" formType="submit">修改资料</button>
 </form>

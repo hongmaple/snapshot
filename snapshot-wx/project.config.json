@@ -42,7 +42,7 @@
         "useCompilerPlugins": false
     },
     "compileType": "miniprogram",
-    "libVersion": "2.17.0",
+    "libVersion": "2.11.2",
     "appid": "wx210367cb2d7e88e0",
     "projectname": "poscms_xcx",
     "debugOptions": {

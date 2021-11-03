@@ -21,5 +21,6 @@ App({
     mobile_api: "http://localhost:9501",
     // 登录认证接口
     member_api: "http://localhost:9501",
+    token: ''
   }
 })

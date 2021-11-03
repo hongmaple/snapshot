@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : local
 Source Server Version : 50540
 Source Host           : localhost:3306
-Source Database       : pailide
+Source Database       : snapshot
 
 Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2021-10-28 19:18:12
+Date: 2021-11-02 11:27:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL COMMENT '密码',
   `phone` varchar(11) NOT NULL COMMENT '手机号',
   `role` varchar(255) DEFAULT NULL COMMENT '角色',
-  `avatar_image` varchar(500) DEFAULT '/profile/upload/2021/03/10/dbced90a-9594-4aa7-b228-05a482c26937.png' COMMENT '头像',
+  `avatar_image` varchar(500) DEFAULT '/profile/upload/2021/10/28/088d4925-7411-4447-90d8-3239eaee68f2.gif' COMMENT '头像',
   `creator_id` bigint(20) DEFAULT '0',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -77,13 +77,14 @@ CREATE TABLE `user` (
   `user_type` int(11) DEFAULT '0' COMMENT '0:C端，1：后台',
   `is_deleted` tinyint(2) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('8', 'maple2', '$2a$10$ZlgXVSBPeriRXM3lkB5fVuz/Yj0IuaoiypvXaUM6A/eqxSUI1YjvK', '19976618156', 'admin', '/profile/upload/2021/10/28/088d4925-7411-4447-90d8-3239eaee68f2.gif', '0', '2021-10-28 10:27:57', '2021-10-28 10:27:59', '18', '男', '0', 'valid', '1', '0');
 INSERT INTO `user` VALUES ('9', '张三', '$2a$10$ZlgXVSBPeriRXM3lkB5fVuz/Yj0IuaoiypvXaUM6A/eqxSUI1YjvK', '18579888989', 'consumer', '/profile/upload/2021/10/28/088d4925-7411-4447-90d8-3239eaee68f2.gif', '0', '2021-10-28 17:50:30', null, '18', '男', '0', 'valid', '0', '0');
+INSERT INTO `user` VALUES ('10', '18156', '$2a$10$mLZbUkj1qXsdDBxmMa7ID./qJvCxOQog.KOW1Kz0EbVfyx.i4gX0a', '18976618156', 'consumer', '/profile/upload/2021/10/28/088d4925-7411-4447-90d8-3239eaee68f2.gif', '0', '2021-11-01 18:30:40', null, '18', '男', '0', 'valid', '0', '0');
 
 -- ----------------------------
 -- Table structure for work

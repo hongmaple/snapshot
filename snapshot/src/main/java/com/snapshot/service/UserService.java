@@ -1,5 +1,6 @@
 package com.snapshot.service;
 
+import com.snapshot.dto.request.UpdatePwdReq;
 import com.snapshot.pojo.PageDomain;
 import com.snapshot.pojo.PageList;
 import com.snapshot.pojo.User;
@@ -70,5 +71,12 @@ public interface UserService {
      * @return 用户信息
      */
     User getUserByName(String userName);
+
+    /**
+     * 修改密码
+     * @param updatePwdReq 参数
+     * @return 结果
+     */
+    Boolean updatePwdReq(UpdatePwdReq updatePwdReq);
 
 }

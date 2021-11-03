@@ -15,10 +15,10 @@ public class AjaxResult extends HashMap<String, Object>
     private static final long serialVersionUID = 1L;
 
     /** 状态码 */
-    public static final String CODE_TAG = "code";
+    public static final String CODE_TAG = "status";
 
     /** 返回内容 */
-    public static final String MSG_TAG = "msg";
+    public static final String MSG_TAG = "message";
 
     /** 数据对象 */
     public static final String DATA_TAG = "data";
@@ -33,26 +33,26 @@ public class AjaxResult extends HashMap<String, Object>
     /**
      * 初始化一个新创建的 AjaxResult 对象
      * 
-     * @param code 状态码
-     * @param msg 返回内容
+     * @param status 状态码
+     * @param message 返回内容
      */
-    public AjaxResult(int code, String msg)
+    public AjaxResult(int status, String message)
     {
-        super.put(CODE_TAG, code);
-        super.put(MSG_TAG, msg);
+        super.put(CODE_TAG, status);
+        super.put(MSG_TAG, message);
     }
 
     /**
      * 初始化一个新创建的 AjaxResult 对象
      * 
-     * @param code 状态码
-     * @param msg 返回内容
+     * @param status 状态码
+     * @param message 返回内容
      * @param data 数据对象
      */
-    public AjaxResult(int code, String msg, Object data)
+    public AjaxResult(int status, String message, Object data)
     {
-        super.put(CODE_TAG, code);
-        super.put(MSG_TAG, msg);
+        super.put(CODE_TAG, status);
+        super.put(MSG_TAG, message);
         if (Objects.nonNull(data))
         {
             super.put(DATA_TAG, data);
@@ -82,24 +82,24 @@ public class AjaxResult extends HashMap<String, Object>
     /**
      * 返回成功消息
      * 
-     * @param msg 返回内容
+     * @param message 返回内容
      * @return 成功消息
      */
-    public static AjaxResult success(String msg)
+    public static AjaxResult success(String message)
     {
-        return AjaxResult.success(msg, null);
+        return AjaxResult.success(message, null);
     }
 
     /**
      * 返回成功消息
      * 
-     * @param msg 返回内容
+     * @param message 返回内容
      * @param data 数据对象
      * @return 成功消息
      */
-    public static AjaxResult success(String msg, Object data)
+    public static AjaxResult success(String message, Object data)
     {
-        return new AjaxResult(HttpStatus.OK.value(), msg, data);
+        return new AjaxResult(HttpStatus.OK.value(), message, data);
     }
 
     /**
@@ -115,36 +115,36 @@ public class AjaxResult extends HashMap<String, Object>
     /**
      * 返回错误消息
      * 
-     * @param msg 返回内容
+     * @param message 返回内容
      * @return 警告消息
      */
-    public static AjaxResult error(String msg)
+    public static AjaxResult error(String message)
     {
-        return AjaxResult.error(msg, null);
+        return AjaxResult.error(message, null);
     }
 
     /**
      * 返回错误消息
      * 
-     * @param msg 返回内容
+     * @param message 返回内容
      * @param data 数据对象
      * @return 警告消息
      */
-    public static AjaxResult error(String msg, Object data)
+    public static AjaxResult error(String message, Object data)
     {
-        return new AjaxResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, data);
+        return new AjaxResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, data);
     }
 
     /**
      * 返回错误消息
      * 
-     * @param code 状态码
-     * @param msg 返回内容
+     * @param status 状态码
+     * @param message 返回内容
      * @return 警告消息
      */
-    public static AjaxResult error(int code, String msg)
+    public static AjaxResult error(int status, String message)
     {
-        return new AjaxResult(code, msg, null);
+        return new AjaxResult(status, message, null);
     }
 
     /**

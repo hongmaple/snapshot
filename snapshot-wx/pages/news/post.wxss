@@ -22,7 +22,7 @@
 
 .textarea {
     height:300rpx;
-
+    width: 100%;
      box-sizing: border-box;
     border: 1px solid #d0d0d0;
     border-radius: 10rpx;
@@ -31,3 +31,14 @@
     margin-top: 30rpx;
     margin-bottom: 50rpx;
 }
+.section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 28rpx;
+    padding: 30rpx 0;
+    line-height: 48rpx;
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom: 2rpx solid #e5e5e5;
+  }

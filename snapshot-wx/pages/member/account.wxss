@@ -22,3 +22,21 @@
   margin-bottom: 70rpx;
   text-align: center
 }
+.user-logo{
+    height: 40rpx;
+    width: 40rpx;
+    position:absolute;
+    top:50%;
+    margin-top:-57rpx;
+    right:70rpx;
+ }
+ .userInfo-warp{
+    border-bottom: 1px solid #e7e7e7;
+    padding: 30rpx 30rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 36rpx;
+    background: #fff;
+    position: relative;
+}

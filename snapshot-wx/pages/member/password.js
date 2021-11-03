@@ -23,24 +23,31 @@ Page({
    * 表单提交
    */
   formBindsubmit: function (e) {
-      app.showModel();
-
     var self = this; 
-    var postParams = "is_ajax=1&"
-      + "&password=" + e.detail.value.password1
-      + "&password1=" + e.detail.value.password2 
-      + "&password2=" + e.detail.value.password3;
+    var postParams = {
+      password: e.detail.value.password1,
+      password1: e.detail.value.password2,
+      password2: e.detail.value.password3,
+    } 
+    if(postParams.password1!==postParams.password2) {
+      wx.hideLoading();
+      wx.showModal({
+        showCancel: false,
+        content: '新密码不一致'
+      })
+      return;
+    }
     wx.request({//提交
-      url: app.globalData.member_api + "&s=member&c=account&m=password",
+      url: app.globalData.member_api + "/user/updatePwdReq",
       data: postParams,
-      method: 'post',
+      method: 'put',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
+        "Authorization": app.globalData.token
       },
       success: function (res) {
-        console.log(res.data);
         wx.hideLoading();
-        if (res.data.code == 1) {
+        if (res.data.status == 200) {
           // 修改成功，重新登录
           wx.setStorageSync('member', "");
             wx.showModal({
@@ -50,13 +57,14 @@ Page({
                         wx.navigateTo({ url: "../login/login" });
                     }
                 },
-                content: res.data.msg
+                content: res.data.message
             })
         }
         else {
+            wx.hideLoading();
             wx.showModal({
                 showCancel: false,
-                content: res.data.msg
+                content: res.data.message
             })
         }
       }

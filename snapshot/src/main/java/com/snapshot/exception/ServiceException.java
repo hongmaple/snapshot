@@ -12,12 +12,12 @@ public final class ServiceException extends RuntimeException
     /**
      * 错误码
      */
-    private Integer code;
+    private Integer status;
 
     /**
      * 错误提示
      */
-    private String msg;
+    private String message;
 
     /**
      * 资源
@@ -39,22 +39,22 @@ public final class ServiceException extends RuntimeException
 
     /**
      * 封装异常
-     * @param msg 消息
+     * @param message 消息
      */
-    public ServiceException(String msg)
+    public ServiceException(String message)
     {
-        this.msg = msg;
+        this.message = message;
     }
 
     /**
      * 封装异常
-     * @param msg 消息
-     * @param code 错误码
+     * @param message 消息
+     * @param status 错误码
      */
-    public ServiceException(String msg, Integer code)
+    public ServiceException(String message, Integer status)
     {
-        this.msg = msg;
-        this.code = code;
+        this.message = message;
+        this.status = status;
         this.data=null;
     }
 
@@ -65,17 +65,17 @@ public final class ServiceException extends RuntimeException
 
     public String getMessage()
     {
-        return msg;
+        return message;
     }
 
     public Integer getCode()
     {
-        return code;
+        return status;
     }
 
-    public ServiceException setMessage(String msg)
+    public ServiceException setMessage(String message)
     {
-        this.msg = msg;
+        this.message = message;
         return this;
     }
 

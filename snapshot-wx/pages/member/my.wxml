@@ -1,33 +1,27 @@
 
+   <view class="userInfo-warp">
+    <text class="black">头像</text>
+    <image src="{{avatar}}" class="user-logo"></image>
+  </view>
   <view class="userInfo-warp">
     <text class="black">账号名称</text>
     <text class="gray">{{member.username}}</text>
   </view>
   <view class="userInfo-warp">
-    <text class="black">账户余额</text>
-    <text class="gray">{{member.money}}</text>
-  </view>
-  <view class="userInfo-warp">
-    <text class="black">虚拟金币</text>
-    <text class="gray">{{member.score}}</text>
-  </view>
-  <view class="userInfo-warp">
-    <text class="black">安全邮箱</text>
-    <text class="gray">{{member.email}}</text>
+    <text class="black">账户积分</text>
+    <text class="gray">{{member.point}}</text>
   </view>
   <view class="userInfo-warp">
     <text class="black">手机号码</text>
-    <text class="gray">{{member.qq}}</text>
+    <text class="gray">{{member.phone}}</text>
   </view>
-    <view class="userInfo-warp">
-    <text class="black">真实姓名</text>
-    <text class="gray mr40">{{member.name}}</text>
+  <view class="userInfo-warp">
+    <text class="black">性别</text>
+    <text class="gray">{{member.sex}}</text>
   </view>
-    <view class="userInfo-warp mb20">
-    <text class="black">会员组别</text>
-    <text class="gray">
-{{member.groupname}} {{member.levelname}}
-    </text>
+  <view class="userInfo-warp">
+    <text class="black">年龄</text>
+    <text class="gray">{{member.age}}</text>
   </view>
 
 

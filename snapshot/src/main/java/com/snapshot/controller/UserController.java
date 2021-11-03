@@ -1,5 +1,6 @@
 package com.snapshot.controller;
 
+import com.snapshot.dto.request.UpdatePwdReq;
 import com.snapshot.pojo.AjaxResult;
 import com.snapshot.pojo.PageDomain;
 import com.snapshot.pojo.User;
@@ -127,6 +128,17 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('admin')")
     public AjaxResult deletedUser(@PathVariable Long id) {
         AjaxResult ajaxResult = AjaxResult.success(userService.deletedUser(id));
+        return ajaxResult;
+    }
+
+    /**
+     * 修改密码
+     * @param updatePwdReq 参数
+     * @return 结果
+     */
+    @PutMapping("/updatePwdReq")
+    public AjaxResult updatePwdReq(@RequestBody UpdatePwdReq updatePwdReq) {
+        AjaxResult ajaxResult = AjaxResult.success("修改密码成功",userService.updatePwdReq(updatePwdReq));
         return ajaxResult;
     }
 }

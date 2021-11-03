@@ -37,7 +37,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        if (res.data.code == 200) {
+        if (res.data.status == 200) {
           // 登录成功储存会员信息
           wx.clearStorageSync();
           wx.setStorageSync('token', res.data.data);

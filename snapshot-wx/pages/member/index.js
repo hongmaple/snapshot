@@ -1,8 +1,6 @@
 // pages/member/index.js
 
 var app = getApp();
-var token = wx.getStorageSync('token');
-console.log(token);
 
 var avatar = '../../icons/user.png';
 // if (member['avatarImage']) {
@@ -15,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    token: token,
+    token: null,
     avatar: avatar,
     user: {},
     columnList: [
@@ -52,31 +50,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(token);
+    var token = wx.getStorageSync('token');
+    var ths = this;
     if (token == "") {
       // 未登录跳转登录界面
       wx.reLaunch({ url: "../login/login" });
     }
+    
+    ths.setData({
+      token: token
+    });
+    app.globalData.token = token;
+  },
+  onShow: function () {
+    var ths = this;
     //获取当前用户信息
     wx.request({
       url: app.globalData.mobile_api+"/user/info",
       method: 'post',
-      data: {
-        username: this.data.userName,
-        password: this.data.userPwd
-      },
       header: {
         // 'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Type': 'application/json',
-        "Authorization": token
+        "Authorization": app.globalData.token
       },
       success: function (res) {
-        if (res.data.code == 200) {
+        if (res.data.status == 200) {
           wx.clearStorageSync();
-          wx.setStorageSync('user', res.data.data);
-          console.log(res.data.data)
-          this.setData({
-            user: res.data.data
+          wx.setStorageSync('member', res.data.data);
+          ths.setData({
+            user: res.data.data,
+            avatar: app.globalData.mobile_api+res.data.data.avatarImage
           });
         }
         else {
@@ -86,7 +89,7 @@ Page({
             })
         }
       }
-    })
+})
   },
   downLogin: function () {
     wx.showModal({

@@ -1,21 +1,29 @@
 <view class="login-warp">
 <form bindsubmit="formSubmit">
+<view style="width: 99%;">
+  <textarea class="textarea" placeholder="请添加内容" name="title" />
+</view>
 <view class="warp-pos">
- <input  placeholder="文章标题" type="text" class="userPwd" name="title"/>
+   <label class="radio">
+    <radio-group bindchange="radioChange">
+        <label class="weui-cell weui-check__label" wx:for="{{items}}" wx:key="{{item.value}}">
+          <radio style="padding-left: 40rpx;" value="{{item.value}}" checked="{{item.checked}}"/>
+            {{item.name}}
+        </label>
+      </radio-group>
+   </label>
+
+   <view style="height: 260rpx;width: 100%;padding-top: 15rpx;">
+        <view class="section" wx:if="{{type==1}}">
+          <!-- 照片 -->
+          <image style="height: 150rpx;width: 150rpx;float: left;display: block;" src="../../icons/upload.png"></image>
+        </view>
+        <view wx:if="{{type==2}}">
+        <!-- 视频 -->
+        </view>
+    </view>
 </view>
-
-<view class="">
-  <textarea class="textarea" placeholder="文章内容" name="content" />
-
-</view>
-
-<view class="warp-pos">
-
-
-<button  bindtap="uploadFile">上传缩略图</button>
-</view>
-
-<button style="margin-top:30rpx" class="login-btn" formType="submit" bindtap="add">发布文章</button>
+<button style="margin-top:30rpx" class="login-btn" formType="submit" bindtap="add">发布作品</button>
 </form>
 
 </view>

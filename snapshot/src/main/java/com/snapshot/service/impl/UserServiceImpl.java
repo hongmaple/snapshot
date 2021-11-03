@@ -3,6 +3,7 @@ package com.snapshot.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.snapshot.dao.UserDao;
+import com.snapshot.dto.request.UpdatePwdReq;
 import com.snapshot.enums.UserState;
 import com.snapshot.exception.ServiceException;
 import com.snapshot.mapper.UserMapper;
@@ -163,5 +164,26 @@ public class UserServiceImpl implements UserService {
                 .eq(User::getPhone,userName)
                 .eq(User::getStatus, UserState.valid)
                 .one();
+    }
+
+    @Override
+    public Boolean updatePwdReq(UpdatePwdReq updatePwdReq) {
+        JwtUser loginUser = SecurityUtils.getLoginUser();
+        User user = userDao.lambdaQuery()
+                .eq(User::getId, loginUser.getId())
+                .select(User::getPassword)
+                .one();
+
+        if (!SecurityUtils.matchesPassword(updatePwdReq.getPassword(),user.getPassword())) {
+            throw new ServiceException("原密码不正确",400);
+        }
+        boolean update = userDao.lambdaUpdate()
+                .set(User::getPassword, SecurityUtils.encryptPassword(updatePwdReq.getPassword2()))
+                .eq(User::getId, loginUser.getId())
+                .update();
+        if (!update) {
+            throw new ServiceException("修改密码失败",400);
+        }
+        return update;
     }
 }

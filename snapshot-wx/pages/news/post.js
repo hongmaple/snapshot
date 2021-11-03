@@ -12,8 +12,19 @@ Page({
   data: {
     postData: {
       title: "",
-      content: "",
+      content: ""
     },
+    type: 1,
+    items: [
+      {value: '1', name: '上传图片', checked: true},
+      {value: '2', name: '上传视频', checked: false}
+    ]
+  },
+  onShow: function() {
+    if (app.globalData.token == "") {
+      // 未登录跳转登录界面
+      wx.reLaunch({ url: "../login/login" });
+    }
   },
    formSubmit:function(e){
         console.log(e.detail.value)
@@ -51,7 +62,19 @@ Page({
         })
     },
 
-
+    radioChange(e) {
+      console.log('radio发生change事件，携带value值为：', e.detail.value)
+  
+      const items = this.data.items
+      for (let i = 0, len = items.length; i < len; ++i) {
+        items[i].checked = items[i].value === e.detail.value
+      }
+  
+      this.setData({
+        items,
+        type: e.detail.value
+      })
+    },
     add: function () {
 
         
@@ -59,48 +82,53 @@ Page({
 
 
     uploadFile:function(){
-        var that = this;
-        wx.chooseImage({
-            count: 1, // 最多可以选择的图片张数，默认9
-            sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
-            success: function(res2){
-                wx.uploadFile({
-                    url: upload_url,
-                    filePath:res2.tempFilePaths[0],
-                    name:'file',
-                    formData: {
-                      is_ajax:1
-                    },
-                    header: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    success: function(res){
-                      var ret = JSON.parse(res.data);
-                      console.log(ret);
-                        if (ret.code) {
-                          thumb_id = ret.id;
-                            wx.showModal({
-                                showCancel: false,
-                                content: "上传成功："+ret.url
-                            })
-                        } else {
-                            wx.showModal({
-                                showCancel: false,
-                                content: ret.msg
-                            })
-                        }
+      var that = this;
+      var upload_url = app.globalData.mobile_api + "/common/upload";
+      wx.chooseImage({
+          count: 1, // 最多可以选择的图片张数，默认9
+          sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
+          success: function(res2){
+              wx.uploadFile({
+                  url: upload_url,
+                  filePath:res2.tempFilePaths[0],
+                  name:'file',
+                  formData: {
+                    is_ajax:1
+                  },
+                  header: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  success: function(res){
+                    var ret = JSON.parse(res.data);
+                    console.log(ret);
+                      if (ret.status==200) {
+                          wx.showModal({
+                              showCancel: false,
+                              content: "上传成功"
+                          })
+                          console.log(ret.fileName);
+                          that.setData({
+                              ['member.avatarImage']: ret.fileName,
+                              avatar: ret.url
+                          });
+                      } else {
+                          wx.showModal({
+                              showCancel: false,
+                              content: ret.message
+                          })
+                      }
 
-                    }
-                })
-            },
-            fail: function() {
-                // fail
-            },
-            complete: function() {
-                // complete
-            }
-        })
+                  }
+              })
+          },
+          fail: function() {
+              // fail
+          },
+          complete: function() {
+              // complete
+          }
+      })
     },
 
 
