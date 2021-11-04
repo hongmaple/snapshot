@@ -18,7 +18,10 @@ Page({
     items: [
       {value: '1', name: '上传图片', checked: true},
       {value: '2', name: '上传视频', checked: false}
-    ]
+    ],
+    pics: [],
+    count: [1, 2, 3],
+    isShow:true,
   },
   onShow: function() {
     if (app.globalData.token == "") {
@@ -79,7 +82,28 @@ Page({
 
         
     },
-
+    chooseImage: function (e) {
+      var ths = this;
+      console.log(e.currentTarget.dataset.sign)
+      if (e.currentTarget.dataset.sign){//这里的结果为trule
+        return;
+      }else{
+        var pics =ths.data.pics;
+        wx. chooseImage({
+        count :3-pics.length, //最多可以选择的图片张数;默认9
+        sizeType: [ 'original', 'compressed'], //original 原图，compressed压缩图;默认二者都有
+        sourceType: ['album', 'camera'], //album从相册选图. camera使用相机，默认二者都有
+        success: function (res) {
+        var tempFilessize = res.tempFiles[0].size; //获取图片的大小 ，单位B
+        conso1e.log("上传的图片大小:"+tempFilesSize);
+        var imgSrc = res.tempFilePaths ;
+        console.log(imgSrc)
+        for(var i=0;i<pics.length;i++){
+        if(pics[i]==''){
+        pics.splice(i, 1);
+      }
+      }
+    },
 
     uploadFile:function(){
       var that = this;
