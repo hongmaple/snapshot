@@ -31,7 +31,7 @@
             </view>
           </view>
          <!-- 视频 -->
-         <view wx:if="{{type==2}}" style="width:100%;float:left;margin-top:25rpx;margin-left:40rpx;padding-bottom:120rpx;" class="weui-uploader__bd">
+         <!-- <view wx:if="{{type==2}}" style="width:100%;float:left;margin-top:25rpx;margin-left:40rpx;padding-bottom:120rpx;" class="weui-uploader__bd">
             <view class="weui-uploader__files">
               <block wx:for="{{pics}}" wx:for-item="image" wx:key="item">
                <view class="weui-uploader__file">
@@ -45,7 +45,7 @@
             <view class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
               <view class="weui-uploader__input" bindtap="chooseImage" data-sign="{{disabl}}"></view>
             </view>
-          </view>
+          </view> -->
     </view>
 </view>
 <button style="margin-top:30rpx" class="login-btn" formType="submit" bindtap="add">发布作品</button>
