@@ -15,7 +15,7 @@
 
    <view style="height: 260rpx;width: 100%;padding-top: 15rpx;">
          <!-- 照片 -->
-         <view wx:if="{{type==1}} style="width:100%;float:left;margin-top:25rpx;margin-left:40rpx;padding-bottom:120rpx;" class="weui-uploader__bd">
+         <view wx:if="{{type==1}}" style="width:100%;float:left;margin-top:25rpx;margin-left:40rpx;padding-bottom:120rpx;" class="weui-uploader__bd">
             <view class="weui-uploader__files">
               <block wx:for="{{pics}}" wx:for-item="image" wx:key="item">
                <view class="weui-uploader__file">
@@ -31,6 +31,21 @@
             </view>
           </view>
          <!-- 视频 -->
+         <view wx:if="{{type==2}}" style="width:100%;float:left;margin-top:25rpx;margin-left:40rpx;padding-bottom:120rpx;" class="weui-uploader__bd">
+            <view class="weui-uploader__files">
+              <block wx:for="{{pics}}" wx:for-item="image" wx:key="item">
+               <view class="weui-uploader__file">
+                 <image src="../../../images/warehouse/scanCode_delete.png" wx:if="{{image!=''}}"
+                 bindtap="img_delete" class="image_view_css" data-index="{{index}}" 
+                 data-sign="{{disabl}}"></image>
+                 <image class="weui-uploader__img" wx:if="{{image!=''}}" src="{{filters.updateImag(httpURL,deURL,image)}}" bindtap="previewImage"></image>  
+               </view>
+              </block>
+            </view>
+            <view class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
+              <view class="weui-uploader__input" bindtap="chooseImage" data-sign="{{disabl}}"></view>
+            </view>
+          </view>
     </view>
 </view>
 <button style="margin-top:30rpx" class="login-btn" formType="submit" bindtap="add">发布作品</button>

@@ -90,19 +90,29 @@ Page({
       }else{
         var pics =ths.data.pics;
         wx. chooseImage({
-        count :3-pics.length, //最多可以选择的图片张数;默认9
-        sizeType: [ 'original', 'compressed'], //original 原图，compressed压缩图;默认二者都有
-        sourceType: ['album', 'camera'], //album从相册选图. camera使用相机，默认二者都有
-        success: function (res) {
-        var tempFilessize = res.tempFiles[0].size; //获取图片的大小 ，单位B
-        conso1e.log("上传的图片大小:"+tempFilesSize);
-        var imgSrc = res.tempFilePaths ;
-        console.log(imgSrc)
-        for(var i=0;i<pics.length;i++){
-        if(pics[i]==''){
-        pics.splice(i, 1);
+          count :3-pics.length, //最多可以选择的图片张数;默认9
+          sizeType: [ 'original', 'compressed'], //original 原图，compressed压缩图;默认二者都有
+          sourceType: ['album', 'camera'], //album从相册选图. camera使用相机，默认二者都有
+          success: function (res) {
+            var tempFilessize = res.tempFiles[0].size; //获取图片的大小 ，单位B
+            console.log("上传的图片大小:"+tempFilessize);
+            var imgSrc = res.tempFilePaths ;
+            console.log(imgSrc)
+            for(var i=0;i<pics.length;i++){
+              if(pics[i]==''){
+                pics.splice(i, 1);
+              }
+            }
+          }
+        });
       }
-      }
+    },
+    previewImage: function (e) {
+      var current = e.target.dataset.src
+      wx.previewImage({
+        current: current,
+        urls: this.data.pics
+      })
     },
 
     uploadFile:function(){
