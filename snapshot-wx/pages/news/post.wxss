@@ -44,36 +44,39 @@
   }
 
   .weui-uploader__bd {
-    margin-bottom: -4px;
-    margin-right: -9px;
+    width: 100%;
+    margin-bottom: -4rpx;
+    margin-right: -9rpx;
     overflow: hidden;
   }
   .weui-uploader__file {
     float: left;
-    margin-right: 15px;
-    margin-bottom: 9px;
+    width: 100%;
+    margin-right: 15rpx;
+    margin-bottom: 9rpx;
   }
   .image_view_css{
-    width:60rpx;
-    height: 60rpx;
+    width:179rpx;
+    height: 179rpx;
     position: absolute;
     z-index: 5;
-    margin-left: 65px;
+    margin-left: 65rpx;
     margin-top: -25rpx
   }
   .weui-uploader__img {
     display: block;
-    width: 79px;
-    height: 79px;
+    width: 179rpx;
+    height: 179rpx;
   }
   .weui-uploader__input-box {
     float: left;
     position: relative;
-    margin-right: 9px;
-    margin-bottom: 9px;
-    width: 77px;
-    height: 77px;
-    border: 1px solid #d9d9d9;
+    margin-left: 6rpx;
+    margin-bottom: 6rpx;
+    margin-top: 6rpx;
+    width: 195rpx;
+    height: 195rpx;
+    border: 1rpx solid #d9d9d9;
   }
   .weui-uploader__input-box:before, .weui-uploader__input-box:after {
     content: " ";
@@ -84,12 +87,12 @@
     background-color: #d9d9d9;
   }
   .weui-uploader__input-box:before {
-    width: 2px;
-    height: 39.5px;
+    width: 2rpx;
+    height: 39.5rpx;
   }
   .weui-uploader__input-box:after {
-    width: 39.5px;
-    height: 2px;
+    width: 39.5rpx;
+    height: 2rpx;
   }
   .weui-uploader__input {
     position: absolute;

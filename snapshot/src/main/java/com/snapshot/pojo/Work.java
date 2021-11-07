@@ -1,8 +1,6 @@
 package com.snapshot.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.snapshot.enums.WorkState;
 import lombok.Data;
 
@@ -21,14 +19,13 @@ public class Work {
      */
     private String title;
     /**
-     * pic
-     */
-    private String pic;
-    /**
      * 视频地址
      */
     private String url;
-
+    /**
+     * 作品类型 1：文明点赞，2：曝光台
+     */
+    private Integer workType;
     /**
      * 类型 1：视频，2：照片
      */
@@ -48,17 +45,21 @@ public class Work {
     private Integer creatorType;
 
     /**
-     * 创建时间 发布时间
+     * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     /**
-     * 是否删除
+     * 逻辑删除
      */
+    @TableLogic
+    @TableField(fill = FieldFill.INSERT)
     private Boolean isDeleted;
 }

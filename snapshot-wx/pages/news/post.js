@@ -1,6 +1,6 @@
 var app = getApp();
 
-var post_url = app.globalData.member_api + "&s=member&mod=news&c=home&m=add";
+var post_url = app.globalData.member_api + "/work";
 
 // fid=19是缩略图的字段id号
 var member = wx.getStorageSync('member');
@@ -12,16 +12,24 @@ Page({
   data: {
     postData: {
       title: "",
-      content: ""
+      url: "",
+      type: 1,
+      workType: 1
     },
     type: 1,
     items: [
       {value: '1', name: '上传图片', checked: true},
       {value: '2', name: '上传视频', checked: false}
     ],
+    workTypes: [
+      {value: '1', name: '文明点赞', checked: true},
+      {value: '2', name: '曝光台', checked: false}
+    ],
     pics: [],
     count: [1, 2, 3],
     isShow:true,
+    imageCount: 3,
+    vidoCount: 1,
   },
   onShow: function() {
     if (app.globalData.token == "") {
@@ -30,41 +38,74 @@ Page({
     }
   },
    formSubmit:function(e){
-        console.log(e.detail.value)
-        this.setData({postData:e.detail.value});
+        
+        var that = this;
+        var upload_url = app.globalData.mobile_api + "/common/upload";
+        var urls = [];
+        var pics = that.data.pics;
+        var i=0
+        for(i=0;i<pics.length;i++) {
+          wx.uploadFile({
+            url: upload_url,
+            filePath:pics[i],
+            name:'file',
+            formData: {
+              is_ajax:1
+            },
+            header: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            success: function(res){
+              var ret = JSON.parse(res.data);
+                if (ret.status==200) {
+                  urls.push(ret.fileName);
+                  var sads = pics.length;
+                  if(i==sads) {
+                    that.setData({
+                      ['postData.title']:e.detail.value.title,
+                      ['postData.type']: that.data.type,
+                      ['postData.url']: JSON.stringify(urls)
+                    });
+                    that.addWork();
+                  }
+                } else {
+                    wx.showModal({
+                        showCancel: false,
+                        content: ret.message
+                    })
+                }
 
-        var self = this;
-
-        var postParams = "is_ajax=1"
-          + "&data[title]=" + e.detail.value.title
-          + "&data[content]=" + e.detail.value.content
-          + "&data[thumb]=" + thumb_id
-          + "&catid=18";// 暂时固定栏目18
-        wx.request({
-          url: post_url,
-          data: postParams,
-          method: 'post',
-          header: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          success: function (res) {
-            console.log(res.data);
-            if (res.data.code) {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'success'
-              })
             }
-            else {
-              wx.showModal({
-                showCancel: false,
-                content: res.data.msg
-              })
-            }
-          }
-        })
+         });
+        }
     },
-
+    addWork() {
+      wx.request({
+        url: post_url,
+        data: this.data.postData,
+        method: 'post',
+        header: {
+          'Content-Type': 'application/json',
+          "Authorization": app.globalData.token
+        },
+        success: function (res) {
+          console.log(res.data);
+          if (res.data.status==200) {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'success'
+            })
+            wx.reLaunch({ url: "../home/index" });
+          }
+          else {
+            wx.showModal({
+              showCancel: false,
+              content: res.data.message
+            })
+          }
+        }
+      })
+    },
     radioChange(e) {
       console.log('radio发生change事件，携带value值为：', e.detail.value)
   
@@ -74,13 +115,25 @@ Page({
       }
   
       this.setData({
-        items,
-        type: e.detail.value
+        items: items,
+        type: e.detail.value,
+        pics: [],
+        imageCount: 3,
+        vidoCount: 1,
       })
     },
-    add: function () {
-
-        
+    radioWorkTypeChange: function(e) {
+      console.log('radio发生change事件，携带value值为：', e.detail.value)
+  
+      const workTypes = this.data.workTypes
+      for (let i = 0, len = workTypes.length; i < len; ++i) {
+        workTypes[i].checked = workTypes[i].value === e.detail.value
+      }
+  
+      this.setData({
+        workTypes: workTypes,
+        ['postData.workType']: e.detail.value
+      })
     },
     chooseImage: function (e) {
       var ths = this;
@@ -89,20 +142,62 @@ Page({
         return;
       }else{
         var pics =ths.data.pics;
-        wx. chooseImage({
-          count :3-pics.length, //最多可以选择的图片张数;默认9
+        wx.chooseImage({
+          count :ths.imageCount-pics.length, //最多可以选择的图片张数;默认9
           sizeType: [ 'original', 'compressed'], //original 原图，compressed压缩图;默认二者都有
           sourceType: ['album', 'camera'], //album从相册选图. camera使用相机，默认二者都有
           success: function (res) {
+            console.log(res)
             var tempFilessize = res.tempFiles[0].size; //获取图片的大小 ，单位B
             console.log("上传的图片大小:"+tempFilessize);
             var imgSrc = res.tempFilePaths ;
-            console.log(imgSrc)
-            for(var i=0;i<pics.length;i++){
-              if(pics[i]==''){
-                pics.splice(i, 1);
-              }
+            // for(var i=0;i<pics.length;i++){
+            //   if(pics[i]==''){
+            //     pics.splice(i, 1);
+            //   }
+            // }
+            var pics = ths.data.pics;
+             for(var i=0;i<imgSrc.length;i++){
+                if(imgSrc[i]==''){
+                  //pics.splice(i, 1);
+                }else {
+                  pics.push(imgSrc[i])
+                }
             }
+            ths.setData({
+              pics: pics,
+              imageCount: ths.imageCount-pics.length
+            })
+          }
+        });
+      }
+    },
+    chooseVido: function (e) {
+      var ths = this;
+      console.log(e.currentTarget.dataset.sign)
+      if (e.currentTarget.dataset.sign){//这里的结果为trule
+        return;
+      }else{
+        var pics =ths.data.pics;
+        wx.chooseVideo({
+          sourceType: ['album', 'camera'], //album从相册选图. camera使用相机，默认二者都有
+          camera: 'back',//默认拉起的是前置或者后置摄像头，默认back
+          compressed: true,//是否压缩所选择的视频文件
+          success: function (res) {
+            console.log(res)
+            let duration = res.duration //选定视频的时间长度
+            let size = parseFloat(res.size/1024/1024).toFixed(1) //选定视频的数据量大小
+            console.log("上传的图片大小:"+size);
+            // let height = res.height //返回选定视频的高度
+            // let width = res.width //返回选中视频的宽度
+            var tempFilePath = res.tempFilePath ;
+        
+            var pics = ths.data.pics;
+            pics.push(tempFilePath);
+            ths.setData({
+              pics: pics,
+              vidoCount: 0
+            })
           }
         });
       }
@@ -113,57 +208,5 @@ Page({
         current: current,
         urls: this.data.pics
       })
-    },
-
-    uploadFile:function(){
-      var that = this;
-      var upload_url = app.globalData.mobile_api + "/common/upload";
-      wx.chooseImage({
-          count: 1, // 最多可以选择的图片张数，默认9
-          sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
-          success: function(res2){
-              wx.uploadFile({
-                  url: upload_url,
-                  filePath:res2.tempFilePaths[0],
-                  name:'file',
-                  formData: {
-                    is_ajax:1
-                  },
-                  header: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-                  success: function(res){
-                    var ret = JSON.parse(res.data);
-                    console.log(ret);
-                      if (ret.status==200) {
-                          wx.showModal({
-                              showCancel: false,
-                              content: "上传成功"
-                          })
-                          console.log(ret.fileName);
-                          that.setData({
-                              ['member.avatarImage']: ret.fileName,
-                              avatar: ret.url
-                          });
-                      } else {
-                          wx.showModal({
-                              showCancel: false,
-                              content: ret.message
-                          })
-                      }
-
-                  }
-              })
-          },
-          fail: function() {
-              // fail
-          },
-          complete: function() {
-              // complete
-          }
-      })
-    },
-
-
+    }
 })

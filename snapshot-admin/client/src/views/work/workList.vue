@@ -2,9 +2,9 @@
   <div class="staff">
     <div class="staff-top">
       <el-form :inline="true">
-        <el-form-item class="btnRight">
+        <!-- <el-form-item class="btnRight">
           <el-button type="primary" size="small" icon="el-icon-edit-outline" @click='onAddMoney()'>添加</el-button>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
     </div>
     <div class="tables">
@@ -14,31 +14,31 @@
             <span style="margin-left: 10px">{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="封面" align="center" width="180">
-          <template slot-scope="scope">
-            <img alt="封面" style="width:100px;height=80px;" :src="'api/'+scope.row.pic" />
-          </template>
-        </el-table-column>
-        <el-table-column label="视频" align="center" width="350">
+        <!-- <el-table-column label="视频" align="center" width="350">
           <template slot-scope="scope">
             <video width="320" height="240" controls="controls">
               <source :src="'api/'+scope.row.url" type="video/mp4">
             </video>
           </template>
-        </el-table-column>
-        <el-table-column label="是否付费" align="center" width="180">
+        </el-table-column> -->
+        <el-table-column label="状态" align="center" width="350">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.isCharge}}</span>
+            <span style="margin-left: 10px">{{ scope.row.status=='TO_AUDIT'? '待审核':(scope.row.status=='PASS'?'通过':(scope.row.status=='NO_PASS'?'不通过':'失效')) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="价格" align="center" width="180">
+        <el-table-column label="文件类型" align="center" width="350">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.price}}</span>
+            <span style="margin-left: 10px">{{ scope.row.type==1? '图片':'视频' }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="作品类型" align="center" width="350">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.workType==1? '文明点赞':'爆光台' }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" fixed="right">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -80,11 +80,10 @@ export default {
       form: {
         //添加和删除需要传递的字段名
         id: 0,
-        title: "",
-        pic: "",
-        url: "",
-        isCharge: "",
-        price: ""
+        title: null,
+        url: [],
+        type: 1,
+        status: null
       },
       id: 0
     };
@@ -92,7 +91,7 @@ export default {
   methods: {
     userInfo(formData) {
       this.$axios
-        .post("/api/video/list", formData)
+        .post("/api/work/list", formData)
         .then(res => {
           this.userData = res.data.data;
         })
@@ -113,12 +112,19 @@ export default {
     handleEdit(index, row) {
       //编辑
       this.dialong = {
-        title: "编辑信息",
+        title: "查看信息",
         show: true,
         option: "edit"
       };
       this.id = row.id;
-      this.form = row;
+      this.form ={
+        id: row.id,
+        title: row.title,
+        url: JSON.parse(row.url),
+        type: row.type,
+        status: row.status,
+        workType: row.workType,
+      }
     },
     handleDelete(index, row) {
       //删除数据
@@ -129,7 +135,7 @@ export default {
       })
         .then(() => {
           this.$axios
-            .delete(`/api/VideoTeaching/${row.id}`, {
+            .delete(`/api/work/${row.id}`, {
               headers: { token: localStorage.getItem("eleToken") }
             })
             .then(res => {
@@ -156,11 +162,8 @@ export default {
       };
       this.form = {
         id: 0,
-        title: "",
-        pic: "",
-        url: "",
-        isCharge: "",
-        price: ""
+        title: null,
+        url: []
       };
     },
     handleSizeChange(page_size) {

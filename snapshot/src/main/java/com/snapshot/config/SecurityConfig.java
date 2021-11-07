@@ -75,7 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/user/login",
                         "/user/register",
-                        "/common/upload").anonymous()
+                        "/common/upload",
+                        "/queryWorkListByWorkType").anonymous()
                 // 静态资源放行
                 .antMatchers(
                         HttpMethod.GET,

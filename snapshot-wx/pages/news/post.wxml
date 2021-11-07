@@ -4,7 +4,17 @@
   <textarea class="textarea" placeholder="请添加内容" name="title" />
 </view>
 <view class="warp-pos">
+  <label class="radio">
+    作品类型
+    <radio-group bindchange="radioWorkTypeChange">
+        <label class="weui-cell weui-check__label" wx:for="{{workTypes}}" wx:key="{{item.value}}">
+          <radio style="padding-left: 40rpx;" value="{{item.value}}" checked="{{item.checked}}"/>
+            {{item.name}}
+        </label>
+      </radio-group>
+   </label>
    <label class="radio">
+   文件
     <radio-group bindchange="radioChange">
         <label class="weui-cell weui-check__label" wx:for="{{items}}" wx:key="{{item.value}}">
           <radio style="padding-left: 40rpx;" value="{{item.value}}" checked="{{item.checked}}"/>
@@ -13,39 +23,51 @@
       </radio-group>
    </label>
 
-   <view style="height: 260rpx;width: 100%;padding-top: 15rpx;">
+   <view style="height: 300rpx;width: 100%;padding-top: 15rpx;">
          <!-- 照片 -->
-         <view wx:if="{{type==1}}" style="width:100%;float:left;margin-top:25rpx;margin-left:40rpx;padding-bottom:120rpx;" class="weui-uploader__bd">
-            <view class="weui-uploader__files">
-              <block wx:for="{{pics}}" wx:for-item="image" wx:key="item">
-               <view class="weui-uploader__file">
-                 <image src="../../../images/warehouse/scanCode_delete.png" wx:if="{{image!=''}}"
-                 bindtap="img_delete" class="image_view_css" data-index="{{index}}" 
-                 data-sign="{{disabl}}"></image>
-                 <image class="weui-uploader__img" wx:if="{{image!=''}}" src="{{filters.updateImag(httpURL,deURL,image)}}" bindtap="previewImage"></image>  
+         <view wx:if="{{type==1}}" style="width: 100%;">
+              <block wx:for="{{pics}}" wx:for-item="imageUrl" wx:key="imageUrl">
+               <view style="width: 195rpx;height: 195rpx;float: left;border: 1rpx solid #d9d9d9;margin-top: 6rpx;margin-left: 6rpx;margin-bottom: 6rpx;">
+                 <!-- <image style="width: 16rpx;height: 16rpx;" src="../../icons/delete.png" wx:if="{{imageUrl!=''}}"
+                 bindtap="img_delete" data-index="{{index}}" 
+                 data-sign="{{disabl}}"></image> -->
+                 <image style="width: 189rpx;height: 189rpx;position: relative;left: 1rpx;top: 1rpx;" wx:if="{{imageUrl!=''}}" src="{{imageUrl}}" bindtap="previewImage">
+                 </image> 
+                 <!-- <image class="weui-uploader__img" wx:if="{{image!=''}}" src="{{filters.updateImag(httpURL,deURL,image)}}" bindtap="previewImage"></image>   --> 
                </view>
               </block>
-            </view>
-            <view class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
-              <view class="weui-uploader__input" bindtap="chooseImage" data-sign="{{disabl}}"></view>
-            </view>
+              <view wx:if="{{imageCount>0}}" class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
+                 <view class="weui-uploader__input" bindtap="chooseImage" data-sign="{{disabl}}"></view>
+              </view> 
           </view>
          <!-- 视频 -->
-         <!-- <view wx:if="{{type==2}}" style="width:100%;float:left;margin-top:25rpx;margin-left:40rpx;padding-bottom:120rpx;" class="weui-uploader__bd">
-            <view class="weui-uploader__files">
-              <block wx:for="{{pics}}" wx:for-item="image" wx:key="item">
-               <view class="weui-uploader__file">
-                 <image src="../../../images/warehouse/scanCode_delete.png" wx:if="{{image!=''}}"
-                 bindtap="img_delete" class="image_view_css" data-index="{{index}}" 
-                 data-sign="{{disabl}}"></image>
-                 <image class="weui-uploader__img" wx:if="{{image!=''}}" src="{{filters.updateImag(httpURL,deURL,image)}}" bindtap="previewImage"></image>  
+         <view wx:if="{{type==2}}" style="width: 100%;">
+              <block wx:for="{{pics}}" wx:for-item="imageUrl" wx:key="imageUrl">
+               <view style="width: 100%;height: 567rpx;float: left;border: 1rpx solid #d9d9d9;margin-top: 6rpx;margin-left: 6rpx;margin-bottom: 6rpx;">
+                 <!-- <image style="width: 16rpx;height: 16rpx;" src="../../icons/delete.png" wx:if="{{imageUrl!=''}}"
+                 bindtap="img_delete" data-index="{{index}}" 
+                 data-sign="{{disabl}}"></image> -->
+                  <video 
+                    wx:if="{{imageUrl!=''}}"
+                    id="myVideo" 
+                    src="{{imageUrl}}" 
+                    binderror="videoErrorCallback" 
+                    danmu-list="{{danmuList}}" 
+                    enable-danmu 
+                    danmu-btn 
+                    show-center-play-btn='{{false}}' 
+                    show-play-btn="{{true}}" 
+                    controls
+                    picture-in-picture-mode="{{['push', 'pop']}}"
+                    bindenterpictureinpicture='bindVideoEnterPictureInPicture'
+                    bindleavepictureinpicture='bindVideoLeavePictureInPicture'
+                  ></video>
                </view>
               </block>
-            </view>
-            <view class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
-              <view class="weui-uploader__input" bindtap="chooseImage" data-sign="{{disabl}}"></view>
-            </view>
-          </view> -->
+              <view wx:if="{{vidoCount>0}}" class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
+                 <view class="weui-uploader__input" bindtap="chooseVido" data-sign="{{disabl}}"></view>
+              </view> 
+          </view>
     </view>
 </view>
 <button style="margin-top:30rpx" class="login-btn" formType="submit" bindtap="add">发布作品</button>

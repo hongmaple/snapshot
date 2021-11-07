@@ -6,13 +6,13 @@
     "pages/member/index",
     "pages/member/account",
     "pages/member/password",
-    "pages/member/comment",
     "pages/member/favorite",
     "pages/member/my",
     "pages/news/list",
     "pages/news/show",
     "pages/news/post",
-    "pages/news/comment"
+    "pages/news/comment",
+    "pages/cthumb/list"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -30,12 +30,6 @@
         "text": "首页",
         "iconPath": "icons/home.png",
         "selectedIconPath": "icons/home-on.png"
-      },
-      {
-        "pagePath": "pages/news/list",
-        "text": "新闻",
-        "iconPath": "icons/news.png",
-        "selectedIconPath": "icons/news-on.png"
       },
       {
         "pagePath": "pages/news/post",

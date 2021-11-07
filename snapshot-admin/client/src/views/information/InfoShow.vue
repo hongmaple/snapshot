@@ -135,9 +135,9 @@ export default {
                 option: "edit"
             },
             form: {   //添加和删除需要传递的字段名
-                password: "",
-                phone: "",
-                username: "",
+                password: null,
+                phone: null,
+                username: null,
                 id: 0
             },
             id: 0
@@ -185,7 +185,7 @@ export default {
             }
             this.id = this.user.id;
             this.form = {
-                password: this.user.password,
+                password: null,
                 phone: this.user.phone,
                 username: this.user.username,
                 id: this.user.id

@@ -62,6 +62,7 @@ Page({
                         icon: 'success',
                         duration: 2000
                     });
+                    wx.reLaunch({ url: "../login/login" });
                 }
                 else {
                     wx.showModal({

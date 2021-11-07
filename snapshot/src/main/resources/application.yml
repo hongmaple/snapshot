@@ -37,7 +37,7 @@ ruoyi:
   # 版权年份
   copyrightYear: 2021
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: D:/project/snapshot/snapshot/uploadPath/upload
+  profile: D:/project/snapshot/snapshot/uploadPath
 # rsa配置
 rsa:
   key:

@@ -11,23 +11,19 @@
     >
       <el-form :model="form" ref="formdoalog" :rules="formdialog" label-width="80px">
         <el-form-item label="标题" prop="title">
-          <el-input v-model="form.title"></el-input>
+          <span>{{form.title}}</span>
         </el-form-item>
-        <el-form-item label="封面" prop="images">
-           <el-upload
-                class="avatar-uploader"
-                action="/api/common/upload"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-                 v-model="form.pic"
-                >
-                <img alt="图片" v-if="form.pic" :src="'api/'+form.pic" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+         <el-form-item label="状态" prop="title">
+          <span style="margin-left: 10px">{{ form.status=='TO_AUDIT'? '待审核':(form.status=='PASS'?'通过':(form.status=='NO_PASS'?'不通过':'失效')) }}</span>
         </el-form-item>
-        <el-form-item label="视频" prop="void">
-           <el-upload
+        <el-form-item label="文件类型" prop="title">
+          <span style="margin-left: 10px">{{ form.type==1? '图片':'视频' }}</span>
+        </el-form-item>
+         <el-form-item label="作品类型" prop="title">
+          <span style="margin-left: 10px">{{ form.workType==1? '文明点赞':'爆光台' }}</span>
+        </el-form-item>
+        <el-form-item label="文件" prop="void">
+           <!-- <el-upload
                 class="avatar-uploader"
                 action="/api/common/upload"
                 :show-file-list="false"
@@ -39,12 +35,28 @@
                         <source :src="'api/'+form.url" type="video/mp4">
                  </video>
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            </el-upload> -->
+            <div v-if="form.type==1">
+              <div v-for="(item,i) in form.url" :key="i">
+                  <img style="float: left;" alt="图片" v-if="item" :src="'api'+item" class="avatar">
+              </div>
+            </div>
+            <div v-if="form.type==2">
+               <div v-for="(item,i) in form.url" :key="i">
+                   <video width="320" v-if="item" height="240" controls="controls">
+                        <source :src="'api'+item" type="video/mp4">
+                   </video>
+              </div>
+            </div>
+            
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialong.show = false">取 消</el-button>
-        <el-button type="primary" @click="addHandle('formdoalog')">确 定</el-button>
+        <el-button v-if="form.status=='TO_AUDIT' || form.status=='NO_PASS'" type="primary" @click="updateStatus(form.id,'PASS')">通过</el-button>
+        <el-button v-if="form.status=='TO_AUDIT' || form.status=='PASS'" type="primary" @click="updateStatus(form.id,'NO_PASS')">不通过</el-button>
+        <el-button v-if="form.status=='PASS'" type="primary" @click="updateStatus(form.id,'LOSE_EFFICACY')">停效</el-button>
+        <el-button v-if="form.status=='LOSE_EFFICACY'" type="primary" @click="updateStatus(form.id,'PASS')">启用</el-button>
       </div>
     </el-dialog>
   </div>
@@ -67,8 +79,9 @@ export default {
     form: {
          id: null,
          title: null,
-         pic: null,
-         url: null
+         url: null,
+         type: null,
+         status: null
     },
     id: 0
   },
@@ -77,7 +90,7 @@ export default {
       this.$refs[formdoalog].validate(valid => {
         if (valid) {
           if(this.dialong.option == "add") {
-            this.$axios.post("/api/video", this.form).then(res => {
+            this.$axios.post("/api/work", this.form).then(res => {
                 this.$message({
                   type: "success",
                   message: "数据添加成功"
@@ -90,7 +103,7 @@ export default {
           }else {
             const formData = this.form;
             formData.id = this.id;
-            this.$axios.put("/api/VideoTeaching", formData,{headers: {"token": localStorage.getItem("eleToken")}}).then(res => {
+            this.$axios.put("/api/work", formData,{headers: {"token": localStorage.getItem("eleToken")}}).then(res => {
                 this.$message({
                   type: "success",
                   message: "数据修改成功"
@@ -106,7 +119,24 @@ export default {
           return false;
         }
       });
-    },    
+    },   
+    updateStatus(id,status) {
+            this.$axios.put("/api/work/"+id+'/'+status, this.form).then(res => {
+                if(res.data.status = 200) {
+                  this.$message({
+                    type: "success",
+                    message: res.data.message
+                  });
+                   (this.dialong.show = false);
+                   this.$emit("UserData");
+                }else {
+                 this.$message({
+                    type: "error",
+                    message: res.data.message
+                  });
+                }
+            });
+    } ,
     handleAvatarSuccess(res, file) {
             //URL.createObjectURL(file.raw);
             this.form.pic = res.fileName;

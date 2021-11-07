@@ -1,8 +1,6 @@
 package com.snapshot.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.snapshot.enums.UserState;
 import lombok.Data;
 import java.util.Date;
@@ -51,6 +49,7 @@ public class User {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
@@ -61,6 +60,7 @@ public class User {
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     public Date updateTime;
 
     /**
@@ -80,8 +80,10 @@ public class User {
     public Integer userType;
 
     /**
-     * 是否删除
+     * 逻辑删除
      */
+    @TableLogic
+    @TableField(fill = FieldFill.INSERT)
     public Boolean isDeleted;
 
 }

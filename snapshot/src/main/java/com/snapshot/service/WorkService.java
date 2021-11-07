@@ -1,45 +1,64 @@
 package com.snapshot.service;
 
 import com.snapshot.dto.request.WorkQuery;
+import com.snapshot.dto.response.WorkHomeVo;
+import com.snapshot.enums.WorkState;
 import com.snapshot.pojo.PageList;
 import com.snapshot.pojo.Work;
+
+import java.util.List;
 
 /**
  * @author Chan
  */
 public interface WorkService {
     /**
-     * 添加视频教学
-     * @param work 视频
-     * @return 视频id
+     * 添加作品教学
+     * @param work 作品
+     * @return 作品id
      */
-    Long addVideoTeaching(Work work);
+    Long addWork(Work work);
 
     /**
-     * 修改视频
-     * @param work 视频
+     * 修改作品
+     * @param work 作品
      * @return 结果
      */
     Boolean updateVideoTeaching(Work work);
 
     /**
-     * 加载视频
+     * 加载作品
      * @param query 参数
-     * @return 视频
+     * @return 作品
      */
     PageList<Work> videoTeachingList(WorkQuery query);
 
     /**
      *
-     * @param id 视频id
+     * @param id 作品id
      * @return 结果
      */
     Boolean deletedVideoTeaching(Long id);
 
     /**
-     * 根据ID查询视频详情
+     * 根据ID查询作品详情
      * @param id id
      * @return 详情
      */
     Work getVideoTeachingById(Long id);
+
+    /**
+     *
+     * @param id
+     * @param state
+     * @return
+     */
+    Boolean updateStatus(Long id, WorkState state);
+
+    /**
+     * 按类型加载作品
+     * @param query
+     * @return
+     */
+    PageList<WorkHomeVo> queryWorkListByWorkType(WorkQuery query);
 }

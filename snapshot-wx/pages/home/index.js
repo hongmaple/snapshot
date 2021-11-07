@@ -16,23 +16,18 @@ Page({
     ],
     icons: [
       {
-        icon: '../../images/i1.jpg',
-        name: '账号资料',
-        url: '../member/my',
-      },
-      {
         icon: '../../images/i2.jpg',
-        name: '新闻列表',
+        name: '爆光台',
         url: '../news/list',
       },
       {
         icon: '../../images/i4.jpg',
-        name: '我的收藏',
-        url: '../member/favorite',
+        name: '文明点赞',
+        url: '../cthumb/list',
       },
       {
         icon: '../../images/i3.jpg',
-        name: '我的评论',
+        name: '排行榜',
         url: '../member/comment',
       }
     ],

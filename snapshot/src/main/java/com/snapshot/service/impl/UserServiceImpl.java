@@ -97,24 +97,6 @@ public class UserServiceImpl implements UserService {
         if (userDao.lambdaQuery().eq(User::getId,loginUser.getId()).count()==0) {
             throw new ServiceException("该用户不存在",400);
         }
-        User up_user = userDao.lambdaQuery().eq(User::getPhone, user.getPhone()).one();
-        if (Objects.nonNull(up_user)) {
-            if(up_user.getId().equals(loginUser.getId())) {
-                if(userDao.lambdaQuery().eq(User::getPhone,user.getPhone()).ne(User::getId,loginUser.getId()).count()>0) {
-                    throw new ServiceException("修改失败，手机号码已存在",400);
-                }
-                if(userDao.lambdaQuery().eq(User::getUsername,user.getUsername()).ne(User::getId,loginUser.getId()).count()>0) {
-                    throw new ServiceException("修改失败，用户名已存在",400);
-                }
-            }else {
-                if(userDao.lambdaQuery().eq(User::getPhone,user.getPhone()).count()>1) {
-                    throw new ServiceException("修改失败，手机号码已存在",400);
-                }
-                if(userDao.lambdaQuery().eq(User::getUsername,user.getUsername()).count()>1) {
-                    throw new ServiceException("修改失败，用户名已存在",400);
-                }
-            }
-        }
         if (user.getPassword()!=null&& StringUtils.isNoneEmpty(user.getPassword())) {
             user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         }else {

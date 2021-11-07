@@ -11,13 +11,13 @@
     >
       <el-form :model="form" ref="formdoalog" :rules="formdialog" label-width="80px">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="form.username"></el-input>
+          <span>{{form.username}}</span>
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
-          <el-input v-model="form.phone"></el-input>
+          <span>{{form.phone}}</span>
         </el-form-item>
         <el-form-item label="密码" prop="state">
-          <el-input v-model="form.password"></el-input>
+          <el-input type="password" v-model="form.password"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
