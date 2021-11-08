@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService {
         if(userDao.lambdaQuery().eq(User::getUsername,user.getUsername()).ne(User::getId,loginUser.getId()).count()>0) {
             throw new ServiceException("修改失败，用户名已存在",400);
         }
+        //给密码设置加密
         if (user.getPassword()!=null&& StringUtils.isNoneEmpty(user.getPassword())) {
             user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         }else {
@@ -97,6 +98,7 @@ public class UserServiceImpl implements UserService {
         if (userDao.lambdaQuery().eq(User::getId,loginUser.getId()).count()==0) {
             throw new ServiceException("该用户不存在",400);
         }
+        //给密码设置加密
         if (user.getPassword()!=null&& StringUtils.isNoneEmpty(user.getPassword())) {
             user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         }else {

@@ -33,7 +33,7 @@ Page({
                 creatorId: null,
                 creatorType: null,
                 status: null,
-                workType: 1,
+                workType: 2,
                 pageNum: 1,
                 pageSize: 10
             },

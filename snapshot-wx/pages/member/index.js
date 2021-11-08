@@ -19,30 +19,30 @@ Page({
     columnList: [
       {
         "url": "../member/my",
-        "iconPath": "../../icons/star.png",
+        "iconPath": "../../icons/userinfo.png",
         "columnName": "账号信息"
       },
 
       {
         "url": "../member/account",
-        "iconPath": "../../icons/star.png",
+        "iconPath": "../../icons/updata-user.png",
         "columnName": "修改资料"
       },
       {
         "url": "../member/password",
-        "iconPath": "../../icons/star.png",
+        "iconPath": "../../icons/updata-pwd.png",
         "columnName": "修改密码"
       },
-      {
-        "url": "../member/comment",
-        "iconPath": "../../icons/star.png",
-        "columnName": "文章评论"
-      },
-      {
-        "url": "../member/favorite",
-        "iconPath": "../../icons/star.png",
-        "columnName": "文章收藏"
-      }
+      // {
+      //   "url": "../member/comment",
+      //   "iconPath": "../../icons/star.png",
+      //   "columnName": "文章评论"
+      // },
+      // {
+      //   "url": "../member/favorite",
+      //   "iconPath": "../../icons/star.png",
+      //   "columnName": "文章收藏"
+      // }
     ],
   },
 

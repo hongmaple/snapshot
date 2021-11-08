@@ -1,7 +1,10 @@
 package com.snapshot.service;
 
 import com.snapshot.dto.response.AgeAnalysisVo;
+import com.snapshot.dto.response.RankingListVo;
 import com.snapshot.dto.response.StatisticsTopVo;
+import com.snapshot.pojo.PageDomain;
+import com.snapshot.pojo.PageList;
 
 import java.util.List;
 
@@ -21,5 +24,12 @@ public interface StatisticsService {
      * @return 年龄分布统计
      */
     List<AgeAnalysisVo> getAgeAnalysisVo();
+
+    /**
+     * 排行榜
+     * @param query
+     * @return
+     */
+    PageList<RankingListVo> queryRankingList(PageDomain query);
 
 }

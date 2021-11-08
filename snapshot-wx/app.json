@@ -12,7 +12,9 @@
     "pages/news/show",
     "pages/news/post",
     "pages/news/comment",
-    "pages/cthumb/list"
+    "pages/cthumb/list",
+    "pages/baoguantai/list",
+    "pages/ranking/list"
   ],
   "window": {
     "backgroundTextStyle": "light",

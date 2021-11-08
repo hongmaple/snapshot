@@ -1,12 +1,14 @@
 package com.snapshot.controller;
 
 import com.snapshot.dto.response.AgeAnalysisVo;
+import com.snapshot.dto.response.RankingListVo;
 import com.snapshot.dto.response.StatisticsTopVo;
+import com.snapshot.pojo.AjaxResult;
+import com.snapshot.pojo.PageDomain;
+import com.snapshot.pojo.PageList;
 import com.snapshot.service.StatisticsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +43,16 @@ public class StatisticsController {
     @GetMapping("/ageAnalysis")
     public List<AgeAnalysisVo> getAgeAnalysisVo() {
         return statisticsService.getAgeAnalysisVo();
+    }
+
+    /**
+     * 排行榜
+     * @param query
+     * @return
+     */
+    @PostMapping("/ranking")
+    public AjaxResult queryRankingList(@RequestBody PageDomain query) {
+        AjaxResult ajaxResult = AjaxResult.success(statisticsService.queryRankingList(query));
+        return ajaxResult;
     }
 }

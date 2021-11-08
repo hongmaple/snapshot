@@ -1,10 +1,19 @@
 package com.snapshot.service.impl;
 
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.snapshot.dao.*;
 import com.snapshot.dto.response.AgeAnalysisVo;
+import com.snapshot.dto.response.RankingListVo;
 import com.snapshot.dto.response.StatisticsTopVo;
+import com.snapshot.exception.ServiceException;
+import com.snapshot.pojo.PageDomain;
+import com.snapshot.pojo.PageList;
 import com.snapshot.pojo.User;
+import com.snapshot.pojo.Work;
+import com.snapshot.security.JwtUser;
 import com.snapshot.service.StatisticsService;
+import com.snapshot.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -106,5 +115,37 @@ public class StatisticsServiceImpl implements StatisticsService {
             ageAnalysisVos.add(ageAnalysisVo7);
         }
         return ageAnalysisVos;
+    }
+
+    @Override
+    public PageList<RankingListVo> queryRankingList(PageDomain query) {
+        // 获取登录用户
+        JwtUser loginUser = null;
+        try {
+            loginUser = SecurityUtils.getLoginUser();
+        } catch (Exception e) {
+            System.out.println("获取用户信息异常");
+        }
+        LambdaQueryChainWrapper<User> lambdaQuery = userDao.lambdaQuery();
+        lambdaQuery.orderByDesc(User::getPoint);
+        lambdaQuery.eq(User::getUserType,0);
+        Page<User> page = lambdaQuery.page(new Page<>(query.getPageNum(), query.getPageSize()));
+        List<RankingListVo> rankingListVos = new LinkedList<>();
+        List<User> records = page.getRecords();
+        for (int i=1;i<=records.size();i++) {
+            User user = records.get(i-1);
+            RankingListVo rankingListVo = new RankingListVo();
+            rankingListVo.setRankingIndex(i);
+            rankingListVo.setUsername(user.getUsername());
+            rankingListVo.setAvatarImage(user.getAvatarImage());
+            rankingListVo.setPoint(user.getPoint());
+            if (Objects.nonNull(loginUser)) {
+                rankingListVo.setIsMy(loginUser.getId().equals(user.getId()));
+            }else {
+                rankingListVo.setIsMy(false);
+            }
+            rankingListVos.add(rankingListVo);
+        }
+        return PageList.of(rankingListVos,page);
     }
 }

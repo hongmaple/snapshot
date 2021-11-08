@@ -10,7 +10,12 @@ public class WorkHomeVo extends Work {
      */
     private String username;
     /**
-     *
+     *发布者头像
      */
     private String avatarImage;
+
+    /**
+     *评论数
+     */
+    private Integer comments;
 }

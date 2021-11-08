@@ -18,7 +18,7 @@ Page({
       {
         icon: '../../images/i2.jpg',
         name: '爆光台',
-        url: '../news/list',
+        url: '../baoguantai/list',
       },
       {
         icon: '../../images/i4.jpg',
@@ -28,7 +28,7 @@ Page({
       {
         icon: '../../images/i3.jpg',
         name: '排行榜',
-        url: '../member/comment',
+        url: '../ranking/list',
       }
     ],
   },

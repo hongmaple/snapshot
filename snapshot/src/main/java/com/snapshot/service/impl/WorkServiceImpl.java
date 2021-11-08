@@ -2,19 +2,20 @@ package com.snapshot.service.impl;
 
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.snapshot.dao.EvaluationDao;
 import com.snapshot.dao.UserDao;
 import com.snapshot.dao.WorkDao;
 import com.snapshot.dto.request.WorkQuery;
 import com.snapshot.dto.response.WorkHomeVo;
 import com.snapshot.enums.WorkState;
 import com.snapshot.exception.ServiceException;
+import com.snapshot.pojo.Evaluation;
 import com.snapshot.pojo.PageList;
 import com.snapshot.pojo.User;
 import com.snapshot.pojo.Work;
 import com.snapshot.security.JwtUser;
 import com.snapshot.service.WorkService;
 import com.snapshot.utils.SecurityUtils;
-import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -31,12 +32,14 @@ public class WorkServiceImpl implements WorkService {
     private final WorkDao workDao;
     private final UserDao userDao;
     private final ModelMapper modelMapper;
+    private final EvaluationDao evaluationDao;
 
-    public WorkServiceImpl(WorkDao workDao, UserDao userDao, ModelMapper modelMapper) {
+    public WorkServiceImpl(WorkDao workDao, UserDao userDao, ModelMapper modelMapper, EvaluationDao evaluationDao) {
 
         this.workDao = workDao;
         this.userDao = userDao;
         this.modelMapper = modelMapper;
+        this.evaluationDao = evaluationDao;
     }
 
 
@@ -98,6 +101,7 @@ public class WorkServiceImpl implements WorkService {
     @Override
     public PageList<WorkHomeVo> queryWorkListByWorkType(WorkQuery query) {
         LambdaQueryChainWrapper<Work> lambdaQuery = workDao.lambdaQuery();
+        lambdaQuery.eq(Work::getStatus,WorkState.PASS);
         if (StringUtils.hasText(query.getTitle())) {
             lambdaQuery.like(Work::getTitle,query.getTitle());
         }
@@ -120,8 +124,12 @@ public class WorkServiceImpl implements WorkService {
             workHomeVo.setUsername("热心市民");
             User user = userDao.getById(workHomeVo.getCreatorId());
             if (Objects.nonNull(user)) {
+                //获取发布者头像
                 workHomeVo.setAvatarImage(user.getAvatarImage());
             }
+            //查询评论数
+            Integer count = evaluationDao.lambdaQuery().eq(Evaluation::getWorkId, workHomeVo.getId()).count();
+            workHomeVo.setComments(count);
             workHomeVos.add(workHomeVo);
         }
         return PageList.of(workHomeVos,page);

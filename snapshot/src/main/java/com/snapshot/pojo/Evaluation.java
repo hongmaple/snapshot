@@ -17,6 +17,12 @@ public class Evaluation {
      * 内容
      */
     private String content;
+
+    /**
+     * 作品id
+     */
+    private Long workId;
+
     /**
      *评论者
      */
