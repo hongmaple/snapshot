@@ -38,10 +38,14 @@
    display: flex;
 }
 .fabu-row .news-view {
+  width: 300rpx;
+  height: 500rpx;
   flex: 1;
   text-align: center;
   font-size: 24rpx;
   padding: 20rpx;
+  float: left;
+  padding-left: 30rpx;
 }
 .fabu-row .news-thumb {
   width: 100%;

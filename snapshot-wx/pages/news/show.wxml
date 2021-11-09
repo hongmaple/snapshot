@@ -5,7 +5,7 @@
   {{content.title}}
  <view>
  <text class="news-ctime">{{content.inputtime}}</text>
- <text class="news-local">{{content.cat.name}}</text>
+ <text class="news-local">{{content.name}}</text>
  <text class="news-count">浏览{{content.hits}}次</text>
  </view>
 </view>
