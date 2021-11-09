@@ -38,20 +38,21 @@
         border-bottom: 1px solid #eeeeee;
         margin: 0 30rpx 0 30rpx;
 }
-.news-view image{
-     width: 241rpx;
-     height: 148rpx;
-}
-.news-content{
-    margin-left: 20rpx;
-    width: 100%;
-}
-.news-title{
-
+.news-username{
+    width: 400rpx;
+    margin-left: 30rpx;
     line-height: 45rpx;
     overflow: hidden;
-   font-size: 28rpx;
-   padding-bottom: 30rpx;
+    font-size: 28rpx;
+    margin-top: 35rpx;
+    float: left;
+}
+.news-title{
+    margin-right: 30rpx;
+    line-height: 45rpx;
+    font-size: 28rpx;
+    margin-top: 35rpx;
+    float: left;
 }
 
 .news-hot{
@@ -68,4 +69,27 @@
 
 .pl-bottom {
     margin-top:30rpx;
+}
+
+.rankingIndex {
+    width:100rpx;
+    height:100rpx;
+    background:#fff;
+    border-radius: 50%;
+    color:#ff0;
+    text-align: center;
+    line-height: 50rpx;
+    font-size: 60rpx;
+    /* margin-left: -25rpx; */
+    margin-top: 35rpx;
+}
+
+.mylogo{
+    width: 100rpx;
+    height: 100rpx;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }

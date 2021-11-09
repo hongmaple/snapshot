@@ -21,7 +21,7 @@ Page({
         var token = app.globalData.token;
         var self=this;
         wx.request({
-            url: app.globalData.http_api +'/work/queryWorkListByWorkType',
+            url: app.globalData.http_api +'/statistics/ranking',
             method: 'post',
             header: {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -29,13 +29,8 @@ Page({
                 "Authorization": token
             },
             data: {
-                title: null,
-                creatorId: null,
-                creatorType: null,
-                status: null,
-                workType: 1,
                 pageNum: 1,
-                pageSize: 10
+                pageSize: 50
             },
             success: function(res){
                 wx.hideLoading();
@@ -55,49 +50,6 @@ Page({
 
             }
 
-        })
-    },
-    onReachBottom:function(){
-
-        app.showModel();
-        this.setData({hidden:false});
-        var self=this;
-        var pageid = self.data.page + 1;
-
-        wx.request({
-          url: http_url + "&page=" + pageid,
-            method: 'GET',
-            success: function(res){
-
-                wx.hideLoading();
-                if (res.data.code == 1) {
-                  if (res.data.return.length==0){
-                        self.setData({
-                            hasMore:"true",
-                            hidden:false
-                        });
-                        setTimeout(function(){
-                            self.setData({
-                                hasMore:"false",
-                                hidden:true
-                            });
-                        },900)
-                    }else{
-                        self.setData({
-                          listData: res.data.return,
-                            hidden:true,
-                            page:pageid
-                        });
-                    }
-                } else {
-                    console.log(res.data.msg);
-                    wx.showModal({
-                      showCancel: false,
-                      content: res.data.msg
-                    })
-                }
-
-            }
         })
     }
 

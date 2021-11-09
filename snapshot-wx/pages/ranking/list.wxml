@@ -1,30 +1,18 @@
 <scroll-view class="news-item" scroll-y="true">
 <block wx:for="{{listData}}" wx:for-item="news">
-   <navigator url="../news/show?id={{news.id}}">
-   <view class="news-view">
-     <image src="{{baseUrl+news.avatarImage}}" wx:if="{{news.avatarImage!=''}}"/>
-     {{news.username}}
-     <view class="news-content">
-             <view class="news-title">
-             {{news.title}}
-             </view>           
-           <view class="pos">
-                <view class="news-time">{{news.createTime}}</view>
-                <view class="fr">
-                  <!-- <view class="news-see">
-                  <image src="../../icons/see.png" />
-                  {{news.hits}}
-                  </view> -->
-                  <view class="news-pl">
-                  <image src="../../icons/message.png" />
-                    {{news.comments}}
-                  </view>
-                </view>
-            </view>
-     </view>
+    <view class="news-view">
+     <view class="rankingIndex">
+        {{news.rankingIndex}}
+     </view>    
+     <image class="mylogo" src="{{baseUrl+news.avatarImage}}" wx:if="{{news.avatarImage!=''}}"/>
+     <view class="news-username">
+        {{news.username}}
+     </view>  
+     <view class="news-title">
+             {{news.point}}
+     </view>    
    </view>
-   </navigator>
-   </block>
+</block>
 </scroll-view>
 
 <view class="pl-bottom">
