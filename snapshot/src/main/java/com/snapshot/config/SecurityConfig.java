@@ -71,13 +71,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 // 配置权限
                 .authorizeRequests()
-                // 登录Login 验证码CaptchaImage 允许匿名访问
+                // 登录Login 验证码CaptchaImage 允许匿名访问 但是如果携带了token会报错403
                 .antMatchers(
                         "/user/login",
                         "/user/register",
                         "/common/upload",
-                        "/work/queryWorkListByWorkType",
-                        "/statistics/ranking").anonymous()
+                        "/work/queryWorkListByWorkType"
+                        ).anonymous()
                 // 静态资源放行
                 .antMatchers(
                         HttpMethod.GET,
@@ -86,6 +86,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js",
                         "/profile/**"
+                ).permitAll()
+                .antMatchers(
+                        HttpMethod.POST,
+                        "/statistics/ranking"
                 ).permitAll()
                 // 除了上面所有请求全部需要鉴权认证
                 .anyRequest().authenticated()

@@ -17,7 +17,7 @@ Page({
     },
 
     onLoad:function(options){
-        app.showModel();
+        wx.showLoading();
         var token = app.globalData.token;
         var self=this;
         wx.request({

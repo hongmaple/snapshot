@@ -33,8 +33,8 @@
 
 }
 .news-view{
-     padding: 30rpx 0 30rpx 0;
-       display: flex;
+        padding: 30rpx 0 30rpx 0;
+        display: flex;
         border-bottom: 1px solid #eeeeee;
         margin: 0 30rpx 0 30rpx;
 }
@@ -92,4 +92,11 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+.my_ranking{
+    width: 100%;
+    height: 200rpx;
+    background-color: aqua ;
+    position: relative;
+    top: 1rpx;
 }

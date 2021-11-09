@@ -1,6 +1,24 @@
 <scroll-view class="news-item" scroll-y="true">
+<block wx:for="{{listData}}" wx:for-item="mynews">
+    <view class="my_ranking" wx:if="{{mynews.isMy}}">
+        <view >
+            名次{{mynews.rankingIndex}}
+        </view>  
+        <view>
+            <view>
+            {{mynews.username}}
+            </view>  
+            <view>
+                <image class="mylogo" src="{{baseUrl+mynews.avatarImage}}" wx:if="{{mynews.avatarImage!=''}}"/>
+            </view>
+        </view>
+        <view>
+             积分{{mynews.point}}
+        </view>   
+    </view>
+</block>
 <block wx:for="{{listData}}" wx:for-item="news">
-    <view class="news-view">
+    <view class="news-view" wx:if="{{!news.isMy}}">
      <view class="rankingIndex">
         {{news.rankingIndex}}
      </view>    
