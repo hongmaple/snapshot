@@ -40,6 +40,12 @@ const router = new Router({
           component: () => import('./views/information/InfoShow'),
           meta: { title: '个人信息' }
         },
+          {
+          path: '/slideshow',
+          name: 'slideshow',
+          component: () => import('./views/slideshow'),
+          meta: { title: '轮播图管理' }
+        },
         {
           path: '/editor',
           name: 'editor',

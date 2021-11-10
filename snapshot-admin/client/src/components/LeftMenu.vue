@@ -54,6 +54,10 @@ export default {
             {
               path: "/infoshow",
               name: "个人信息"
+            },
+            {
+              path: "/slideshow",
+              name: "轮播图管理"
             }
             // {
             //   path: "/editor",

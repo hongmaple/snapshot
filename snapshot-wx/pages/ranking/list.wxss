@@ -93,10 +93,51 @@
     justify-content: center;
     overflow: hidden;
 }
+.mylogo_2 {
+    width: 130rpx;
+    height: 130rpx;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
 .my_ranking{
-    width: 100%;
-    height: 200rpx;
+    height: 300rpx;
     background-color: aqua ;
     position: relative;
     top: 1rpx;
+}
+
+.myrankingIndex {
+    float: left;
+    font-size: 30rpx;
+    width: 105rpx;
+    margin-top: 198rpx;
+    margin-left: 157rpx;
+}
+
+.my_ranking_user {
+    float: left;
+    width: 230rpx;
+    text-align: center;
+    align-content: center;
+}
+
+.mypoint {
+    float: left;
+    font-size: 30rpx;
+    width: 130rpx;
+    margin-top: 198rpx;
+    margin-left: 10rpx;
+}
+.myusername{
+    margin-top: 30rpx;
+    text-align: center;
+    align-content: center;
+}
+.mylogo_vi {
+    margin-top: 50rpx;
+    text-align: center;
+    padding-left: 50rpx;
 }

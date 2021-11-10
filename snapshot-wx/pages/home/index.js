@@ -10,10 +10,7 @@ Page({
   data: {
     sdData: [],
     fabuData: [],
-    banners: [
-      '../../images/b2.jpg',
-      '../../images/b1.jpg',
-    ],
+    banners: [],
     icons: [
       {
         icon: '../../images/i2.jpg',
@@ -31,6 +28,7 @@ Page({
         url: '../ranking/list',
       }
     ],
+    baseUrl: app.globalData.member_api
   },
 
   /**
@@ -60,6 +58,37 @@ Page({
       fabuData: fabuData,
     });
     
+    var postParams = {
+      "isAsc": null,
+      "orderBy": null,
+      "orderByColumn": null,
+      "pageNum": 1,
+      "pageSize": 1000
+    };
+  wx.request({//提交
+      url: app.globalData.member_api + "/picture/query/1",
+      data: postParams,
+      method: 'post',
+      header: {
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json'
+      },
+      success: function (res) {
+          wx.hideLoading()
+          if (res.data.status == 200) {
+            console.log(res.data.data.list)
+            self.setData({
+              banners: res.data.data.list,
+            });
+          }
+          else {
+              wx.showModal({
+                  showCancel: false,
+                  content: res.data.message
+              })
+          }
+      }
+  })
   },
 
   /**

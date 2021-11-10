@@ -89,7 +89,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,
-                        "/statistics/ranking"
+                        "/statistics/ranking",
+                        "/picture/query/{pictureStatus}"
                 ).permitAll()
                 // 除了上面所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
