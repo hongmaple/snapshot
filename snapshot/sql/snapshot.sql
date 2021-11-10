@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2021-11-08 20:30:18
+Date: 2021-11-10 18:21:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,20 +40,23 @@ CREATE TABLE `evaluation` (
 -- ----------------------------
 DROP TABLE IF EXISTS `picture`;
 CREATE TABLE `picture` (
-  `picture_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '轮播图ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '轮播图ID',
   `picture_url` varchar(255) DEFAULT NULL COMMENT '轮播图地址',
   `picture_index` int(20) DEFAULT '1' COMMENT '排序',
   `picture_status` int(255) DEFAULT '1' COMMENT '1: 有效，2：无效',
-  `creator_id` bigint(20) NOT NULL COMMENT '发布图片的管理员ID',
+  `creator_id` bigint(20) DEFAULT NULL COMMENT '发布图片的管理员ID',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `is_deleted` tinyint(2) DEFAULT '0',
-  PRIMARY KEY (`picture_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of picture
 -- ----------------------------
+INSERT INTO `picture` VALUES ('1', '/profile/upload/2021/11/10/7f6aefbc-d805-4581-846a-abba234634ef.jpg', '2', '1', '8', '2021-11-10 13:59:11', null, '0');
+INSERT INTO `picture` VALUES ('2', '/profile/upload/2021/11/10/d64305ec-2c7c-44e8-8966-2a632ec8a1a5.jpg', '1', '1', '8', '2021-11-10 14:14:24', '2021-11-10 14:14:27', '0');
+INSERT INTO `picture` VALUES ('3', '/profile/upload/2021/11/10/8ea8e92c-763c-4081-b118-03fd1371151c.jpg', '3', '1', '8', '2021-11-10 16:51:02', null, '0');
 
 -- ----------------------------
 -- Table structure for user
