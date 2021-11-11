@@ -1,29 +1,29 @@
 <scroll-view class="news-item" scroll-y="true">
+<wxs module="dateUtil" src="../../utils/timeUtil.wxs"></wxs>
 <block wx:for="{{listData}}" wx:for-item="news">
-   <navigator url="../news/show?id={{news.id}}">
+   <!-- <navigator url="../news/show?id={{news.id}}"> -->
    <view class="news-view">
-     <image src="{{baseUrl+news.avatarImage}}" wx:if="{{news.avatarImage!=''}}"/>
-     {{news.username}}
+     <view class="news-avatar">
+      <image src="{{baseUrl+news.avatarImage}}" wx:if="{{news.avatarImage!=''}}"/>
+     </view>
      <view class="news-content">
-             <view class="news-title">
+          <view class="pos">
+            <view class="news-username">{{news.username}}</view>
+             <view class="news-time">{{dateUtil.dateFormat(news.createTime,'yyyy/MM/dd')}}</view>
+          </view>
+          <view class="news-title">
              {{news.title}}
-             </view>           
-           <view class="pos">
-                <view class="news-time">{{news.createTime}}</view>
-                <view class="fr">
-                  <!-- <view class="news-see">
-                  <image src="../../icons/see.png" />
-                  {{news.hits}}
-                  </view> -->
-                  <view class="news-pl">
+          </view>
+          <block wx:for="{{dateUtil.toParse(news.url)}}" wx:for-item="urlpath">
+              <image class='news-thumb' src="{{baseUrl+urlpath}}" wx:if="{{urlpath!=''}}"/>
+          </block>
+          <view class="news-pl">
                   <image src="../../icons/message.png" />
-                    {{news.comments}}
-                  </view>
-                </view>
-            </view>
+                  {{news.comments}}
+          </view>
      </view>
    </view>
-   </navigator>
+   <!-- </navigator> -->
    </block>
 </scroll-view>
 

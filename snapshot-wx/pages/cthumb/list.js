@@ -41,8 +41,9 @@ Page({
                 wx.hideLoading();
                 console.log(res.data);
                 if (res.data.status == 200) {
+                    var list = res.data.data.list;
                     self.setData({
-                        listData:res.data.data.list,
+                        listData: list,
                         page: res.data.pages
                     });
                 } else {
