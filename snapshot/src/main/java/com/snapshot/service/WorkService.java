@@ -45,7 +45,7 @@ public interface WorkService {
      * @param id id
      * @return 详情
      */
-    Work getVideoTeachingById(Long id);
+    WorkHomeVo getVideoTeachingById(Long id);
 
     /**
      *

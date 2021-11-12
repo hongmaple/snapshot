@@ -27,7 +27,7 @@ public class Work {
      */
     private Integer workType;
     /**
-     * 类型 1：视频，2：照片
+     * 类型 1：，照片 2：视频
      */
     private Integer type;
 

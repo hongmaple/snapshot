@@ -85,8 +85,22 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public Work getVideoTeachingById(Long id) {
-        return workDao.getById(id);
+    public WorkHomeVo getVideoTeachingById(Long id) {
+        Work work = workDao.getById(id);
+        if (Objects.isNull(work)) {
+            throw new ServiceException("修改失败",400);
+        }
+        WorkHomeVo workHomeVo = modelMapper.map(work,WorkHomeVo.class);
+        workHomeVo.setUsername("热心市民");
+        User user = userDao.getById(workHomeVo.getCreatorId());
+        if (Objects.nonNull(user)) {
+            //获取发布者头像
+            workHomeVo.setAvatarImage(user.getAvatarImage());
+        }
+        //查询评论数
+        Integer count = evaluationDao.lambdaQuery().eq(Evaluation::getWorkId, workHomeVo.getId()).count();
+        workHomeVo.setComments(count);
+        return workHomeVo;
     }
 
     @Override

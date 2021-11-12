@@ -80,6 +80,8 @@ Page({
         }
     },
     addWork() {
+      console.log(this.data.postData);
+      return;
       wx.request({
         url: post_url,
         data: this.data.postData,

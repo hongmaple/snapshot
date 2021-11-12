@@ -11,22 +11,26 @@ Page({
 
         listData:[],
         hidden: true,
-        page: 1,
+        currentPage: 1,
+        pageSize: 10,
+        pages: 0,
         hasMore:"false",
         baseUrl: app.globalData.http_api
     },
 
     onLoad:function(options){
         app.showModel();
-        var token = app.globalData.token;
+        var self=this;
+        self.querWorkList(self.data.currentPage,self.data.pageSize);
+    },
+    querWorkList: function(currentPage,pageSize) {
         var self=this;
         wx.request({
             url: app.globalData.http_api +'/work/queryWorkListByWorkType',
             method: 'post',
             header: {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Type': 'application/json',
-                "Authorization": token
+                'Content-Type': 'application/json'
             },
             data: {
                 title: null,
@@ -34,18 +38,32 @@ Page({
                 creatorType: null,
                 status: null,
                 workType: 1,
-                pageNum: 1,
-                pageSize: 10
+                pageNum: currentPage,
+                pageSize: pageSize
             },
             success: function(res){
                 wx.hideLoading();
                 console.log(res.data);
                 if (res.data.status == 200) {
                     var list = res.data.data.list;
-                    self.setData({
-                        listData: list,
-                        page: res.data.pages
-                    });
+                    if(currentPage==1) {
+                        self.setData({
+                            listData: list,
+                            pages: res.data.pages,
+                            currentPage: currentPage,
+                            pageSize: pageSize
+                        });
+                    }else {
+                        var originArticles = self.data.listData;
+                        var newArticles = list.concat(originArticles);
+                        self.setData({
+                            listData: newArticles,
+                            pages: res.data.pages,
+                            currentPage: currentPage,
+                            pageSize: pageSize
+                        });
+                    }
+                   
                 } else {
                     console.log(res.data.message);
                     wx.showModal({
@@ -58,48 +76,22 @@ Page({
 
         })
     },
-    onReachBottom:function(){
-
-        app.showModel();
-        this.setData({hidden:false});
-        var self=this;
-        var pageid = self.data.page + 1;
-
-        wx.request({
-          url: http_url + "&page=" + pageid,
-            method: 'GET',
-            success: function(res){
-
-                wx.hideLoading();
-                if (res.data.code == 1) {
-                  if (res.data.return.length==0){
-                        self.setData({
-                            hasMore:"true",
-                            hidden:false
-                        });
-                        setTimeout(function(){
-                            self.setData({
-                                hasMore:"false",
-                                hidden:true
-                            });
-                        },900)
-                    }else{
-                        self.setData({
-                          listData: res.data.return,
-                            hidden:true,
-                            page:pageid
-                        });
-                    }
-                } else {
-                    console.log(res.data.msg);
-                    wx.showModal({
-                      showCancel: false,
-                      content: res.data.msg
-                    })
-                }
-
-            }
-        })
-    }
-
+    getCommentList:function(e){
+        //评论跳转
+        var id = e.currentTarget.dataset.id
+        wx.navigateTo({
+          url: '../workComment/comment?id='+id
+       })
+     },
+     onReachBottom: function () {
+        console.log("啊是擦上撒低级阿斯顿撒旦")
+        this.setData({ hidden: false });
+        var self = this;
+        var currentPage = self.data.currentPage;
+        if(self.data.pages<currentPage) {
+          currentPage = currentPage+1;
+          self.queryComment(self.data.currentPage,self.data.pageSize);
+        }
+        return;
+      },
 })

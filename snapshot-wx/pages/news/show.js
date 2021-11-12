@@ -99,7 +99,6 @@ Page({
       app.showModel();
       var self=this;
       var fabuData = self.data.fabuData;
-      console.log(options.id)
       for(var i=0;i<fabuData.length;i++) {
 
         if(options.id == fabuData[i].id) {

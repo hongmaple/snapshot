@@ -35,12 +35,12 @@ public class Evaluation {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createdTime;
+    private Date createTime;
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updatedTime;
+    private Date updateTime;
     /**
      * 逻辑删除
      */

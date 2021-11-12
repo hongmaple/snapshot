@@ -85,12 +85,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/profile/**"
+                        "/profile/**",
+                        "/work/{id}"
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,
                         "/statistics/ranking",
-                        "/picture/query/{pictureStatus}"
+                        "/picture/query/{pictureStatus}",
+                        "/evaluation/list"
                 ).permitAll()
                 // 除了上面所有请求全部需要鉴权认证
                 .anyRequest().authenticated()

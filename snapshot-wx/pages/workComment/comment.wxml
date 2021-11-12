@@ -1,0 +1,43 @@
+<scroll-view class="news-item" scroll-y="true">
+<wxs module="dateUtil" src="../../utils/timeUtil.wxs"></wxs>
+<view class="view-postion">
+<view class="news-title">
+  {{content.title}}
+ <view>
+ <text class="news-ctime">{{dateUtil.dateFormat(content.createTime,'yyyy/MM/dd')}}</text>
+ <text class="news-count">评论{{content.comments}}次</text>
+ </view>
+</view>
+<view class="news-zw">
+      <block wx:for="{{listData}}">
+        <view class="pl-warp">
+        <view style="overflow:hidden">
+         <image class="mylogo" src="{{baseUrl+item.commentatorAvatar}}" wx:if="{{news.avatarImage!=''}}"/>
+         <view class="commentUser">
+          {{item.commentator}}
+         </view>
+         <view class="zan">
+          <view class="zan-flex">
+          <text class="res-time">{{dateUtil.dateFormat(item.createTime,'yyyy/MM/dd hh:mm:ss')}}</text>
+          </view>
+         </view>
+         </view>
+
+          <view class="pl-text">{{item.content}}</view>
+        </view>
+      </block>
+</view>
+</view>
+</scroll-view>
+
+<view class="pl-bottom">
+<view hidden="{{hidden}}" class="hidden" wx:if="{{hasMore!='true'}}"><image src="../../icons/waiting.gif" /> 正在加载....</view>
+<view hidden="{{hidden}}" class="hidden" wx:else>没有更多数据了....</view>
+</view>
+
+<view class="pl-bar">
+    <input placeholder="我来说两句..." class="isay" bindinput="getText"/>
+     <button bindtap="save" class="save">发送</button>
+</view>
+
+

@@ -16,8 +16,8 @@ public class EntityAutoFilledHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         log.debug("自动填充创建时间和更新时间");
         Date now = new Date();
-        this.setFieldValByName("createdTime", now, metaObject);
-        this.setFieldValByName("updatedTime", now, metaObject);
+        this.setFieldValByName("createTime", now, metaObject);
+        this.setFieldValByName("updateTime", now, metaObject);
         this.setFieldValByName("isDeleted", false, metaObject);
     }
 
@@ -25,6 +25,6 @@ public class EntityAutoFilledHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         log.debug("自动填充更新时间");
         Date now = new Date();
-        this.setFieldValByName("updatedTime", now, metaObject);
+        this.setFieldValByName("updateTime", now, metaObject);
     }
 }

@@ -1,29 +1,52 @@
 <scroll-view class="news-item" scroll-y="true">
+<wxs module="dateUtil" src="../../utils/timeUtil.wxs"></wxs>
 <block wx:for="{{listData}}" wx:for-item="news">
-   <navigator url="../news/show?id={{news.id}}">
    <view class="news-view">
-     <image src="{{baseUrl+news.avatarImage}}" wx:if="{{news.avatarImage!=''}}"/>
-     {{news.username}}
+     <view class="news-avatar">
+      <image src="{{baseUrl+news.avatarImage}}" wx:if="{{news.avatarImage!=''}}"/>
+     </view>
      <view class="news-content">
-             <view class="news-title">
+          <view class="pos">
+            <view class="news-username">{{news.username}}</view>
+             <view class="news-time">{{dateUtil.dateFormat(news.createTime,'yyyy/MM/dd')}}</view>
+          </view>
+          <view class="news-title">
              {{news.title}}
-             </view>           
-           <view class="pos">
-                <view class="news-time">{{news.createTime}}</view>
-                <view class="fr">
-                  <!-- <view class="news-see">
-                  <image src="../../icons/see.png" />
-                  {{news.hits}}
-                  </view> -->
-                  <view class="news-pl">
+          </view>
+          <view>
+            <block wx:for="{{dateUtil.toParse(news.url)}}" wx:for-item="urlpath">
+              <view class='news-thumb' wx:if="{{news.type==1}}">
+                <image src="{{baseUrl+urlpath}}" wx:if="{{urlpath!=''}}"/>
+              </view>
+              <view wx:else class="video">
+                 <!-- <image style="width: 16rpx;height: 16rpx;" src="../../icons/delete.png" wx:if="{{imageUrl!=''}}"
+                 bindtap="img_delete" data-index="{{index}}" 
+                 data-sign="{{disabl}}"></image> -->
+                  <video 
+                    wx:if="{{urlpath!=''}}"
+                    id="{{news.id}}"
+                    src="{{baseUrl+urlpath}}" 
+                    binderror="videoErrorCallback" 
+                    danmu-list="{{danmuList}}" 
+                    enable-danmu 
+                    danmu-btn 
+                    show-center-play-btn='{{false}}' 
+                    show-play-btn="{{true}}" 
+                    controls
+                    picture-in-picture-mode="{{['push', 'pop']}}"
+                    bindenterpictureinpicture='bindVideoEnterPictureInPicture'
+                    bindleavepictureinpicture='bindVideoLeavePictureInPicture'
+                  ></video>
+               </view>
+            </block>
+          </view>
+          <view class="news-pl" bindtap="getCommentList" data-id='{{news.id}}'>
+                  评论
                   <image src="../../icons/message.png" />
-                    {{news.comments}}
-                  </view>
-                </view>
-            </view>
+                  {{news.comments}}
+          </view>
      </view>
    </view>
-   </navigator>
    </block>
 </scroll-view>
 
