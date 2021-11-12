@@ -31,7 +31,7 @@ public interface WorkService {
      * @param query 参数
      * @return 作品
      */
-    PageList<Work> videoTeachingList(WorkQuery query);
+    PageList<WorkHomeVo> videoTeachingList(WorkQuery query);
 
     /**
      *

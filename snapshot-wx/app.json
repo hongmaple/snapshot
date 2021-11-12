@@ -15,7 +15,8 @@
     "pages/cthumb/list",
     "pages/baoguantai/list",
     "pages/ranking/list",
-    "pages/workComment/comment"
+    "pages/workComment/comment",
+    "pages/myWork/list"
   ],
   "window": {
     "backgroundTextStyle": "light",

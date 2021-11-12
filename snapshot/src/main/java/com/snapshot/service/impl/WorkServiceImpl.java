@@ -64,7 +64,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public PageList<Work> videoTeachingList(WorkQuery query) {
+    public PageList<WorkHomeVo> videoTeachingList(WorkQuery query) {
         LambdaQueryChainWrapper<Work> lambdaQuery = workDao.lambdaQuery();
         if (StringUtils.hasText(query.getTitle())) {
             lambdaQuery.like(Work::getTitle,query.getTitle());
@@ -75,8 +75,28 @@ public class WorkServiceImpl implements WorkService {
         if (query.getCreatorType()!=null) {
             lambdaQuery.eq(Work::getCreatorType,query.getCreatorType());
         }
+        if (query.getWorkType()!=null) {
+            lambdaQuery.eq(Work::getWorkType,query.getWorkType());
+        }
+        if (query.getStatus()!=null) {
+            lambdaQuery.eq(Work::getStatus,query.getStatus());
+        }
         Page<Work> page = lambdaQuery.page(new Page<>(query.getPageNum(), query.getPageSize()));
-        return PageList.of(page.getRecords(),page);
+        List<WorkHomeVo> workHomeVos = new LinkedList<>();
+        for (Work work:page.getRecords()) {
+            WorkHomeVo workHomeVo = modelMapper.map(work, WorkHomeVo.class);
+            User user = userDao.getById(workHomeVo.getCreatorId());
+            if (Objects.nonNull(user)) {
+                //获取发布者头像
+                workHomeVo.setAvatarImage(user.getAvatarImage());
+                workHomeVo.setUsername(user.getUsername());
+            }
+            //查询评论数
+            Integer count = evaluationDao.lambdaQuery().eq(Evaluation::getWorkId, workHomeVo.getId()).count();
+            workHomeVo.setComments(count);
+            workHomeVos.add(workHomeVo);
+        }
+        return PageList.of(workHomeVos,page);
     }
 
     @Override

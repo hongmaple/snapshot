@@ -2,12 +2,17 @@ package com.snapshot.controller;
 
 import com.snapshot.dto.request.WorkQuery;
 import com.snapshot.enums.WorkState;
+import com.snapshot.exception.ServiceException;
 import com.snapshot.pojo.AjaxResult;
 import com.snapshot.pojo.Work;
+import com.snapshot.security.JwtUser;
 import com.snapshot.service.WorkService;
+import com.snapshot.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * @author Chan
@@ -65,8 +70,26 @@ public class WorkController {
      * @return 作品
      */
     @PostMapping("/list")
+    @PreAuthorize("hasAnyAuthority('admin')")
     public AjaxResult videoTeachingList(@RequestBody WorkQuery query) {
         AjaxResult ajaxResult = AjaxResult.success("加载作品", workService.videoTeachingList(query));
+        return ajaxResult;
+    }
+
+    /**
+     * 加载我的作品
+     * @param query 作品
+     * @return 作品
+     */
+    @PostMapping("/my/list")
+    public AjaxResult myVideoTeachingList(@RequestBody WorkQuery query) {
+        // 获取登录用户
+        JwtUser user = SecurityUtils.getLoginUser();
+        if (Objects.isNull(user)) {
+            throw new ServiceException("请先登陆",400);
+        }
+        query.setCreatorId(user.getId());
+        AjaxResult ajaxResult = AjaxResult.success(workService.videoTeachingList(query));
         return ajaxResult;
     }
 

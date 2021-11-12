@@ -31,7 +31,6 @@ Page({
      */
     formBindsubmit: function (e) {
         var token = app.globalData.token;
-        console.log(token);
         var self = this;
         var member = self.data.member;
         var postParams = {

@@ -13,8 +13,44 @@
 
     <image src="../../icons/right-back.png" class="r-back"></image>
 </view>
-
-
+<view class="user-item">
+      <image src="../../icons/userinfo.png" class="user-icon"></image>
+      <text class=".user-column">我的爆光</text>
+      <image src="../../icons/right-back.png" class="r-back"></image>
+</view>
+<view class="user-item">
+        <view style="width: 33%;margin-left: 40px;">
+          <text>1</text>
+          <text style="margin-left: 10rpx;">待审核</text>
+        </view>
+        <view style="width: 33%;">
+          <text>1</text>
+          <text style="margin-left: 10rpx;">已审核</text>
+        </view>
+        <view style="width: 33%;">
+          <text>1</text>
+          <text style="margin-left: 10rpx;">全部</text>
+        </view>
+</view>
+<view class="user-item">
+      <image src="../../icons/userinfo.png" class="user-icon"></image>
+      <text class=".user-column">我的点赞</text>
+      <image src="../../icons/right-back.png" class="r-back"></image>
+</view>
+<view class="user-item">
+        <view style="width: 33%;margin-left: 40px;">
+          <text>1</text>
+          <text style="margin-left: 10rpx;">待审核</text>
+        </view>
+        <view style="width: 33%;">
+          <text>1</text>
+          <text style="margin-left: 10rpx;">已审核</text>
+        </view>
+        <view style="width: 33%;">
+          <text>1</text>
+          <text style="margin-left: 10rpx;">全部</text>
+        </view>
+</view>
 <block wx:for="{{columnList}}">
   <navigator url="{{item.url}}" hidden="{{flag}}">
     <view class="user-item">

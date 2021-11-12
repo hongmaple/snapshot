@@ -52,10 +52,10 @@ Page({
   onLoad: function (options) {
     var token = wx.getStorageSync('token');
     var ths = this;
-    if (token == "") {
-      // 未登录跳转登录界面
-      wx.reLaunch({ url: "../login/login" });
-    }
+    // if (token == "") {
+    //   // 未登录跳转登录界面
+    //   wx.reLaunch({ url: "../login/login" });
+    // }
     
     ths.setData({
       token: token
