@@ -6,6 +6,8 @@ import com.snapshot.dao.*;
 import com.snapshot.dto.response.AgeAnalysisVo;
 import com.snapshot.dto.response.RankingListVo;
 import com.snapshot.dto.response.StatisticsTopVo;
+import com.snapshot.dto.response.WxinMineInfoVo;
+import com.snapshot.enums.WorkState;
 import com.snapshot.exception.ServiceException;
 import com.snapshot.pojo.PageDomain;
 import com.snapshot.pojo.PageList;
@@ -186,5 +188,23 @@ public class StatisticsServiceImpl implements StatisticsService {
                 "看了这些，我们会觉得两所高校其实各有所长，而湖南师大进入211已经有20多个年头，所以也是得到了国家的大力扶持，因此发展的劲头也是更足一点。但是湘潭大学也不差，如果当初是它进入 211的话，那么如今的湘大肯定会更上一层楼。但是这些都没有如果，如今的湘大几乎上可以跟湖南师大平起平坐，这也是许多网友所认同的，因此希望两校都能借着双一流的东风，为湖南高等教育做出更多的贡献。\n" +
                 "\n";
         return PageList.of(rankingListVos,page);
+    }
+
+    @Override
+    public WxinMineInfoVo queryWxinMineInfoVo() {
+        // 获取登录用户
+        JwtUser user = SecurityUtils.getLoginUser();
+        if (Objects.isNull(user)) {
+            throw new ServiceException("请先登陆",400);
+        }
+        WxinMineInfoVo wxinMineInfoVo = new WxinMineInfoVo();
+        wxinMineInfoVo.setBgtToAuditNum(workDao.lambdaQuery().eq(Work::getCreatorId,user.getId()).eq(Work::getWorkType,2).eq(Work::getStatus, WorkState.TO_AUDIT).count());
+        wxinMineInfoVo.setBgtPassNum(workDao.lambdaQuery().eq(Work::getCreatorId,user.getId()).eq(Work::getWorkType,2).eq(Work::getStatus, WorkState.PASS).count());
+        wxinMineInfoVo.setBgtAllNum(workDao.lambdaQuery().eq(Work::getCreatorId,user.getId()).eq(Work::getWorkType,2).count());
+
+        wxinMineInfoVo.setCultureToAuditNum(workDao.lambdaQuery().eq(Work::getCreatorId,user.getId()).eq(Work::getWorkType,1).eq(Work::getStatus, WorkState.TO_AUDIT).count());
+        wxinMineInfoVo.setCulturePassNum(workDao.lambdaQuery().eq(Work::getCreatorId,user.getId()).eq(Work::getWorkType,1).eq(Work::getStatus, WorkState.PASS).count());
+        wxinMineInfoVo.setCultureAllNum(workDao.lambdaQuery().eq(Work::getCreatorId,user.getId()).eq(Work::getWorkType,1).count());
+        return wxinMineInfoVo;
     }
 }

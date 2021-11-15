@@ -3,6 +3,7 @@ package com.snapshot.controller;
 import com.snapshot.dto.response.AgeAnalysisVo;
 import com.snapshot.dto.response.RankingListVo;
 import com.snapshot.dto.response.StatisticsTopVo;
+import com.snapshot.dto.response.WxinMineInfoVo;
 import com.snapshot.pojo.AjaxResult;
 import com.snapshot.pojo.PageDomain;
 import com.snapshot.pojo.PageList;
@@ -53,6 +54,16 @@ public class StatisticsController {
     @PostMapping("/ranking")
     public AjaxResult queryRankingList(@RequestBody PageDomain query) {
         AjaxResult ajaxResult = AjaxResult.success(statisticsService.queryRankingList(query));
+        return ajaxResult;
+    }
+
+    /**
+     * 文明点赞/曝光台审核情况统计
+     * @return
+     */
+    @GetMapping("/work/wxinMineInfo")
+    public AjaxResult queryWxinMineInfoVo() {
+        AjaxResult ajaxResult = AjaxResult.success(statisticsService.queryWxinMineInfoVo());
         return ajaxResult;
     }
 }

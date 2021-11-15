@@ -44,6 +44,37 @@ Page({
       //   "columnName": "文章收藏"
       // }
     ],
+    wxinMineInfo: {
+      /**
+       * 曝光台待审核数
+       */
+      bgtToAuditNum: 0,
+
+      /**
+       * 曝光台审核通过数
+       */
+      bgtPassNum: 0,
+
+      /**
+       * 曝光台作品总数
+       */
+      bgtAllNum: 0,
+
+      /**
+       * 文明点赞待审核数
+       */
+      cultureToAuditNum: 0,
+
+      /**
+       * 文明点赞审核通过数
+       */
+      culturePassNum: 0,
+
+      /**
+       * 文明点赞作品总数
+       */
+      cultureAllNum: 0
+    }
   },
 
   /**
@@ -52,10 +83,10 @@ Page({
   onLoad: function (options) {
     var token = wx.getStorageSync('token');
     var ths = this;
-    // if (token == "") {
-    //   // 未登录跳转登录界面
-    //   wx.reLaunch({ url: "../login/login" });
-    // }
+    if (token == "") {
+      // 未登录跳转登录界面
+      wx.reLaunch({ url: "../login/login" });
+    }
     
     ths.setData({
       token: token
@@ -63,6 +94,10 @@ Page({
     app.globalData.token = token;
   },
   onShow: function () {
+    this.getUserInfo();
+    this.queryWxinMineInfoVo();
+  },
+  getUserInfo: function(params) {
     var ths = this;
     //获取当前用户信息
     wx.request({
@@ -75,7 +110,6 @@ Page({
       },
       success: function (res) {
         if (res.data.status == 200) {
-          wx.clearStorageSync();
           wx.setStorageSync('member', res.data.data);
           ths.setData({
             user: res.data.data,
@@ -89,7 +123,32 @@ Page({
             })
         }
       }
-})
+  })
+},
+  queryWxinMineInfoVo: function(params) {
+        var ths = this;
+        wx.request({
+          url: app.globalData.mobile_api+"/statistics/work/wxinMineInfo",
+          method: 'get',
+          header: {
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
+            "Authorization": app.globalData.token
+          },
+          success: function (res) {
+            if (res.data.status == 200) {
+              ths.setData({
+                wxinMineInfo: res.data.data
+              });
+            }
+            else {
+                wx.showModal({
+                    showCancel: false,
+                    content: res.data.message
+                })
+            }
+          }
+    })
   },
   downLogin: function () {
     wx.showModal({

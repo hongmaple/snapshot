@@ -76,6 +76,12 @@ const router = new Router({
           name: 'workList',
           component: () => import('./views/work/workList'),
           meta: { title: '作品审核' }
+        },
+        {
+          path: '/evaluation',
+          name: 'evaluation',
+          component: () => import('./views/evaluation/evaluation'),
+          meta: { title: '评论审核' }
         }
       ]
     },

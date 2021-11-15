@@ -37,6 +37,9 @@
         /* display: flex; */
         border-bottom: 1px solid #eeeeee;
         margin: 0 30rpx 0 30rpx;
+        width: 90%;
+        height: 90%;
+        overflow: hidden;
 }
 .news-username{
     width: 60%;
@@ -87,12 +90,22 @@
     float: left;
     margin-left: 30rpx;
     margin-top: 10rpx;
-  }
+    overflow: hidden;
+}
+.news-thumb image{
+    width: 100%;
+    height: 100%;
+}
 .video {
     float: left;
     margin-left: 10rpx;
     margin-top: 10rpx;
     width: 90%;
-    height: 567rpx;
-    border: 1rpx solid #d9d9d9;
+    height: 490rpx;
+    overflow: hidden;
 }  
+
+.video video{
+    width: 90%;
+    height: 100%;
+}    

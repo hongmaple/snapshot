@@ -93,14 +93,18 @@ export default {
             {
               path: "/workList",
               name: "作品审核"
+            },
+            {
+              path: "/evaluation",
+              name: "评论审核"
             }
           ]
         },
-        {
-          icon: "el-icon-location-outline",
-          name: "地图展示",
-          path: "/maplist"
-        }
+        // {
+        //   icon: "el-icon-location-outline",
+        //   name: "地图展示",
+        //   path: "/maplist"
+        // }
       ]
     };
   },

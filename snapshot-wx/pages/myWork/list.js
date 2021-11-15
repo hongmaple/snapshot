@@ -23,6 +23,7 @@ Page({
     onLoad:function(options){
         app.showModel();
         var self=this;
+        console.log(options)
         self.setData({
             workType: options.workType,
             status: options.status

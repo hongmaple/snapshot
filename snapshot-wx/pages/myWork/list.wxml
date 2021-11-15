@@ -40,10 +40,17 @@
                </view>
             </block>
           </view>
-          <view class="news-pl" bindtap="getCommentList" data-id='{{news.id}}'>
+          <view class="news-plsasd" bindtap="getCommentList" data-id='{{news.id}}'>
+                <view style="float: left;">
                   评论
-                  <image src="../../icons/message.png" />
+                  <image style="width: 18rpx;height: 18rpx;" src="../../icons/message.png" />
                   {{news.comments}}
+                </view>
+
+                  <view style="margin-left: 20rpx;float: left;">
+                    状态 {{news.status=='TO_AUDIT'? '待审核':(news.status=='PASS'?'通过':(news.status=='NO_PASS'?'不通过':'失效')) }}
+                  </view>
+                  
           </view>
      </view>
    </view>

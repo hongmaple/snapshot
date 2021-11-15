@@ -19,18 +19,24 @@
       <image src="../../icons/right-back.png" class="r-back"></image>
 </view>
 <view class="user-item">
-        <view style="width: 33%;margin-left: 40px;">
-          <text>1</text>
-          <text style="margin-left: 10rpx;">待审核</text>
-        </view>
-        <view style="width: 33%;">
-          <text>1</text>
-          <text style="margin-left: 10rpx;">已审核</text>
-        </view>
-        <view style="width: 33%;">
-          <text>1</text>
-          <text style="margin-left: 10rpx;">全部</text>
-        </view>
+        <navigator style="width: 33%;margin-left: 40px;" url="../myWork/list?workType=2&status=TO_AUDIT" hidden="{{flag}}">
+          <view>
+            <text>{{wxinMineInfo.bgtToAuditNum}}</text>
+            <text style="margin-left: 10rpx;">待审核</text>
+          </view>
+        </navigator>  
+        <navigator style="width: 33%;" url="../myWork/list?workType=2&status=PASS" hidden="{{flag}}">
+          <view>
+            <text>{{wxinMineInfo.bgtPassNum}}</text>
+            <text style="margin-left: 10rpx;">已通过</text>
+          </view>
+        </navigator>  
+        <navigator style="width: 33%;" url="../myWork/list?workType=2" hidden="{{flag}}">
+          <view>
+            <text>{{wxinMineInfo.bgtAllNum}}</text>
+            <text style="margin-left: 10rpx;">全部</text>
+          </view>
+        </navigator>  
 </view>
 <view class="user-item">
       <image src="../../icons/userinfo.png" class="user-icon"></image>
@@ -38,18 +44,24 @@
       <image src="../../icons/right-back.png" class="r-back"></image>
 </view>
 <view class="user-item">
-        <view style="width: 33%;margin-left: 40px;">
-          <text>1</text>
-          <text style="margin-left: 10rpx;">待审核</text>
-        </view>
-        <view style="width: 33%;">
-          <text>1</text>
-          <text style="margin-left: 10rpx;">已审核</text>
-        </view>
-        <view style="width: 33%;">
-          <text>1</text>
-          <text style="margin-left: 10rpx;">全部</text>
-        </view>
+        <navigator style="width: 33%;margin-left: 40px;" url="../myWork/list?workType=1&status=TO_AUDIT" hidden="{{flag}}">
+          <view>
+            <text>{{wxinMineInfo.cultureToAuditNum}}</text>
+            <text style="margin-left: 10rpx;">待审核</text>
+          </view>
+        </navigator>    
+        <navigator style="width: 33%;" url="../myWork/list?workType=1&status=PASS" hidden="{{flag}}">
+          <view>
+            <text>{{wxinMineInfo.culturePassNum}}</text>
+            <text style="margin-left: 10rpx;">已通过</text>
+          </view>
+        </navigator>  
+        <navigator style="width: 33%;" url="../myWork/list?workType=1" hidden="{{flag}}">
+          <view>
+            <text>{{wxinMineInfo.cultureAllNum}}</text>
+            <text style="margin-left: 10rpx;">全部</text>
+          </view>
+        </navigator>
 </view>
 <block wx:for="{{columnList}}">
   <navigator url="{{item.url}}" hidden="{{flag}}">

@@ -5,10 +5,12 @@ import com.snapshot.dao.EvaluationDao;
 import com.snapshot.dao.UserDao;
 import com.snapshot.dto.request.EvaluationQuery;
 import com.snapshot.dto.response.EvaluationRowVo;
+import com.snapshot.enums.EvaluationState;
 import com.snapshot.exception.ServiceException;
 import com.snapshot.pojo.Evaluation;
 import com.snapshot.pojo.PageList;
 import com.snapshot.pojo.User;
+import com.snapshot.pojo.Work;
 import com.snapshot.security.JwtUser;
 import com.snapshot.service.EvaluationService;
 import com.snapshot.utils.SecurityUtils;
@@ -56,6 +58,26 @@ public class EvaluationServiceImpl implements EvaluationService {
         Page<Evaluation> page = evaluationDao
                 .lambdaQuery()
                 .eq(Evaluation::getWorkId,query.getWorkId())
+                .eq(Evaluation::getStatus, EvaluationState.PASS)
+                .orderByDesc(Evaluation::getCreateTime)
+                .page(new Page<>(query.getPageNum(), query.getPageSize()));
+        List<EvaluationRowVo> evaluationRowVos = new ArrayList<>();
+        page.getRecords().forEach(evaluation -> {
+            EvaluationRowVo evaluationRowVo = modelMapper.map(evaluation,EvaluationRowVo.class);
+            User creator = userDao.getById(evaluation.getCreatorId());
+            if (!Objects.isNull(creator)) {
+                evaluationRowVo.setCommentator(creator.getUsername());
+                evaluationRowVo.setCommentatorAvatar(creator.getAvatarImage());
+            }
+            evaluationRowVos.add(evaluationRowVo);
+        });
+        return PageList.of(evaluationRowVos, page);
+    }
+
+    @Override
+    public PageList<EvaluationRowVo> queryEvaluationListAdmin(EvaluationQuery query) {
+        Page<Evaluation> page = evaluationDao
+                .lambdaQuery()
                 .orderByDesc(Evaluation::getCreateTime)
                 .page(new Page<>(query.getPageNum(), query.getPageSize()));
         List<EvaluationRowVo> evaluationRowVos = new ArrayList<>();
@@ -74,5 +96,14 @@ public class EvaluationServiceImpl implements EvaluationService {
     @Override
     public Integer countEvaluationByProdId(Long prodId) {
         return evaluationDao.lambdaQuery().eq(Evaluation::getWorkId,prodId).count();
+    }
+
+    @Override
+    public Boolean updateStatus(Long id, EvaluationState state) {
+        boolean update = evaluationDao.lambdaUpdate().set(Evaluation::getStatus, state).eq(Evaluation::getId, id).update();
+        if (!update) {
+            throw new ServiceException("修改失败",400);
+        }
+        return update;
     }
 }

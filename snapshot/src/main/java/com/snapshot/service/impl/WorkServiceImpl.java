@@ -7,6 +7,7 @@ import com.snapshot.dao.UserDao;
 import com.snapshot.dao.WorkDao;
 import com.snapshot.dto.request.WorkQuery;
 import com.snapshot.dto.response.WorkHomeVo;
+import com.snapshot.enums.EvaluationState;
 import com.snapshot.enums.WorkState;
 import com.snapshot.exception.ServiceException;
 import com.snapshot.pojo.Evaluation;
@@ -162,7 +163,9 @@ public class WorkServiceImpl implements WorkService {
                 workHomeVo.setAvatarImage(user.getAvatarImage());
             }
             //查询评论数
-            Integer count = evaluationDao.lambdaQuery().eq(Evaluation::getWorkId, workHomeVo.getId()).count();
+            Integer count = evaluationDao.lambdaQuery()
+                    .eq(Evaluation::getWorkId, workHomeVo.getId())
+                    .eq(Evaluation::getStatus, EvaluationState.PASS).count();
             workHomeVo.setComments(count);
             workHomeVos.add(workHomeVo);
         }

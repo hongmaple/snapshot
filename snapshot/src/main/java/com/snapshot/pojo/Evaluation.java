@@ -1,6 +1,7 @@
 package com.snapshot.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.snapshot.enums.EvaluationState;
 import lombok.Data;
 
 import java.util.Date;
@@ -22,6 +23,11 @@ public class Evaluation {
      * 作品id
      */
     private Long workId;
+
+    /**
+     * 状态
+     */
+    private EvaluationState status;
 
     /**
      *评论者
