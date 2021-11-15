@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2021-11-10 18:21:38
+Date: 2021-11-15 17:32:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,17 +23,20 @@ CREATE TABLE `evaluation` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `content` varchar(150) CHARACTER SET utf8 DEFAULT NULL COMMENT '评价内容',
   `work_id` bigint(20) DEFAULT NULL COMMENT '评价的作品id',
+  `status` varchar(255) DEFAULT 'TO_AUDIT' COMMENT '状态',
   `creator_id` bigint(20) NOT NULL COMMENT '评论人',
   `creator_type` int(11) DEFAULT '0' COMMENT '创建者类型(0:C端，1：B端）',
-  `created_time` datetime DEFAULT NULL,
-  `updated_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   `is_deleted` tinyint(2) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='评价/评论';
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='评价/评论';
 
 -- ----------------------------
 -- Records of evaluation
 -- ----------------------------
+INSERT INTO `evaluation` VALUES ('72', '说的好啊', '9', 'PASS', '10', '0', '2021-11-12 16:07:55', '2021-11-12 16:07:55', '0');
+INSERT INTO `evaluation` VALUES ('73', '我非常赞同你的观点', '9', 'NO_PASS', '10', '0', '2021-11-12 16:48:56', '2021-11-12 16:48:56', '0');
 
 -- ----------------------------
 -- Table structure for picture
@@ -44,7 +47,7 @@ CREATE TABLE `picture` (
   `picture_url` varchar(255) DEFAULT NULL COMMENT '轮播图地址',
   `picture_index` int(20) DEFAULT '1' COMMENT '排序',
   `picture_status` int(255) DEFAULT '1' COMMENT '1: 有效，2：无效',
-  `creator_id` bigint(20) DEFAULT NULL COMMENT '发布图片的管理员ID',
+  `creator_id` bigint(20) NOT NULL COMMENT '发布图片的管理员ID',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `is_deleted` tinyint(2) DEFAULT '0',
@@ -98,7 +101,7 @@ CREATE TABLE `work` (
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `url` varchar(500) DEFAULT NULL COMMENT '文件地址',
   `work_type` int(255) DEFAULT '1' COMMENT '作品类型 1：文明点赞，2：曝光台',
-  `type` int(20) DEFAULT '1' COMMENT '文件类型 1：视频，2：照片',
+  `type` int(20) DEFAULT '1' COMMENT '文件类型 1：照片，2：视频',
   `status` varchar(20) DEFAULT 'TO_AUDIT' COMMENT '状态',
   `creator_id` bigint(20) DEFAULT NULL COMMENT '创建者',
   `creator_type` int(11) DEFAULT '0' COMMENT '创建者类型 0：C，1：后台',
@@ -111,10 +114,10 @@ CREATE TABLE `work` (
 -- ----------------------------
 -- Records of work
 -- ----------------------------
-INSERT INTO `work` VALUES ('5', 'it人的一天', '[\"/profile/upload/2021/10/28/72b3aa51-927f-40cd-a54d-0b9629bef632.mp4\"]', '1', '2', 'LOSE_EFFICACY', '8', '1', '2021-10-28 19:16:24', '2021-10-28 19:16:28', '0');
-INSERT INTO `work` VALUES ('9', '今天是立冬记得吃饺子', '[\"/profile/upload/2021/11/07/e30193b8-b16b-4e38-a048-285a53d37787.jpg\",\"/profile/upload/2021/11/07/77ff76f5-c852-4d49-bd71-70a388128040.jpg\",\"/profile/upload/2021/11/07/96df0f08-87fd-4b70-bf3a-718690d5aef4.gif\"]', '1', '1', 'PASS', '11', '0', '2021-11-07 19:12:51', null, '0');
-INSERT INTO `work` VALUES ('12', '今日立冬，雪初至，叶初枯', '[\"/profile/upload/2021/11/07/10f24187-bab2-4646-95f8-ef74e44d0149.mp4\"]', '1', '2', 'TO_AUDIT', '10', '0', '2021-11-07 19:12:55', null, '0');
-INSERT INTO `work` VALUES ('13', '好美的雪景啊', '[\"/profile/upload/2021/11/07/cc3f7a0f-15e1-4c87-98d4-b4e77dd465f1.mp4\"]', '2', '2', 'TO_AUDIT', '11', '0', '2021-11-07 19:13:33', null, '0');
-INSERT INTO `work` VALUES ('14', '有人随地吐痰', '[\"/profile/upload/2021/11/07/011d3649-f793-4fef-80b2-77becda6d4d4.jpg\",\"/profile/upload/2021/11/07/5ab9d2d9-f63a-44b5-8b59-c9da8c7f396a.webp\",\"/profile/upload/2021/11/07/f1438908-dbf1-4e5b-a4ea-5f256a6ddaa4.jpg\"]', '2', '1', 'TO_AUDIT', '10', '0', null, null, '0');
-INSERT INTO `work` VALUES ('15', '有人随地吐痰', '[\"/profile/upload/2021/11/07/011d3649-f793-4fef-80b2-77becda6d4d4.jpg\",\"/profile/upload/2021/11/07/5ab9d2d9-f63a-44b5-8b59-c9da8c7f396a.webp\"]', '2', '1', 'TO_AUDIT', '10', '0', null, null, '0');
-INSERT INTO `work` VALUES ('16', '有人随地吐痰', '[\"/profile/upload/2021/11/07/011d3649-f793-4fef-80b2-77becda6d4d4.jpg\"]', '2', '1', 'TO_AUDIT', '10', '0', null, null, '0');
+INSERT INTO `work` VALUES ('5', 'it人的一天', '[\"/profile/upload/2021/10/28/72b3aa51-927f-40cd-a54d-0b9629bef632.mp4\"]', '1', '2', 'PASS', '8', '1', '2021-10-28 19:16:24', '2021-10-28 19:16:28', '0');
+INSERT INTO `work` VALUES ('9', '今天是立冬记得吃饺子,叫阿三的撒旦撒旦撒旦撒大苏打撒大苏打撒的阿斯顿阿三的阿三的阿三打算的阿三的阿三的阿三打算的撒的阿三打算的萨阿丹撒说的是', '[\"/profile/upload/2021/11/07/e30193b8-b16b-4e38-a048-285a53d37787.jpg\",\"/profile/upload/2021/11/07/77ff76f5-c852-4d49-bd71-70a388128040.jpg\",\"/profile/upload/2021/11/07/96df0f08-87fd-4b70-bf3a-718690d5aef4.gif\"]', '1', '1', 'PASS', '11', '0', '2021-11-07 19:12:51', '2021-11-12 16:53:55', '0');
+INSERT INTO `work` VALUES ('12', '今日立冬，雪初至，叶初枯', '[\"/profile/upload/2021/11/07/10f24187-bab2-4646-95f8-ef74e44d0149.mp4\"]', '1', '2', 'PASS', '10', '0', '2021-11-07 19:12:55', '2021-11-12 16:53:58', '0');
+INSERT INTO `work` VALUES ('13', '好美的雪景啊', '[\"/profile/upload/2021/11/07/011d3649-f793-4fef-80b2-77becda6d4d4.jpg\",\"/profile/upload/2021/11/07/5ab9d2d9-f63a-44b5-8b59-c9da8c7f396a.webp\",\"/profile/upload/2021/11/07/f1438908-dbf1-4e5b-a4ea-5f256a6ddaa4.jpg\"]', '2', '1', 'PASS', '11', '0', '2021-11-07 19:13:33', '2021-11-12 16:54:00', '0');
+INSERT INTO `work` VALUES ('14', '有人随地吐痰', '[\"/profile/upload/2021/11/07/011d3649-f793-4fef-80b2-77becda6d4d4.jpg\",\"/profile/upload/2021/11/07/5ab9d2d9-f63a-44b5-8b59-c9da8c7f396a.webp\",\"/profile/upload/2021/11/07/f1438908-dbf1-4e5b-a4ea-5f256a6ddaa4.jpg\"]', '2', '1', 'PASS', '10', '0', '2021-11-12 16:53:48', '2021-11-12 16:54:04', '0');
+INSERT INTO `work` VALUES ('15', '有人随地吐痰', '[\"/profile/upload/2021/11/07/011d3649-f793-4fef-80b2-77becda6d4d4.jpg\",\"/profile/upload/2021/11/07/5ab9d2d9-f63a-44b5-8b59-c9da8c7f396a.webp\"]', '2', '1', 'PASS', '10', '0', '2021-11-12 16:53:51', '2021-11-12 16:54:07', '0');
+INSERT INTO `work` VALUES ('16', '有人随地吐痰', '[\"/profile/upload/2021/11/07/011d3649-f793-4fef-80b2-77becda6d4d4.jpg\"]', '2', '1', 'PASS', '10', '0', '2021-11-12 16:53:53', '2021-11-12 16:54:10', '0');
