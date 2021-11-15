@@ -116,6 +116,16 @@ Page({
             avatar: app.globalData.mobile_api+res.data.data.avatarImage
           });
         }
+        else if(res.data.status == 401) {
+          wx.showModal({
+            showCancel: false,
+            content: res.data.message
+          })
+          wx.clearStorageSync();
+          app.globalData.token='';
+           // 未登录跳转登录界面
+          wx.reLaunch({ url: "../login/login" });
+        }
         else {
             wx.showModal({
                 showCancel: false,

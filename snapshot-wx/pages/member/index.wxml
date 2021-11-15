@@ -14,7 +14,7 @@
     <image src="../../icons/right-back.png" class="r-back"></image>
 </view>
 <view class="user-item">
-      <image src="../../icons/userinfo.png" class="user-icon"></image>
+      <image src="../../icons/mine-bg.png" class="user-icon"></image>
       <text class=".user-column">我的爆光</text>
       <image src="../../icons/right-back.png" class="r-back"></image>
 </view>
@@ -39,7 +39,7 @@
         </navigator>  
 </view>
 <view class="user-item">
-      <image src="../../icons/userinfo.png" class="user-icon"></image>
+      <image src="../../icons/mine-dj.png" class="user-icon"></image>
       <text class=".user-column">我的点赞</text>
       <image src="../../icons/right-back.png" class="r-back"></image>
 </view>
