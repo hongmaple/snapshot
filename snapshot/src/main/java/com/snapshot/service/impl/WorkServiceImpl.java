@@ -47,15 +47,20 @@ public class WorkServiceImpl implements WorkService {
     @Override
     public Long addWork(Work work) {
         // 获取登录用户
-        JwtUser user = SecurityUtils.getLoginUser();
-        if (Objects.isNull(user)) {
+        JwtUser loginUser = SecurityUtils.getLoginUser();
+        if (Objects.isNull(loginUser)) {
             throw new ServiceException("请先登陆",400);
         }
+        User user = userDao.getById(loginUser.getId());
+        if (Objects.isNull(user)) {
+            throw new ServiceException("用户不存在",400);
+        }
+        userDao.getById(user.getId());
         work.setCreatorId(user.getId());
-        work.setCreatorType(userDao.getById(user.getId()).userType);
+        work.setCreatorType(user.userType);
         workDao.save(work);
         //添加积分
-        userDao.lambdaUpdate().set(User::getPoint,5).eq(User::getId,user.getId()).update();
+        userDao.lambdaUpdate().set(User::getPoint,user.getPoint()+5).eq(User::getId,user.getId()).update();
         return work.getId();
     }
 
@@ -91,6 +96,9 @@ public class WorkServiceImpl implements WorkService {
                 //获取发布者头像
                 workHomeVo.setAvatarImage(user.getAvatarImage());
                 workHomeVo.setUsername(user.getUsername());
+            }else {
+                workHomeVo.setAvatarImage("");
+                workHomeVo.setUsername("该用户已注销");
             }
             //查询评论数
             Integer count = evaluationDao.lambdaQuery().eq(Evaluation::getWorkId, workHomeVo.getId()).count();
@@ -112,11 +120,14 @@ public class WorkServiceImpl implements WorkService {
             throw new ServiceException("修改失败",400);
         }
         WorkHomeVo workHomeVo = modelMapper.map(work,WorkHomeVo.class);
-        workHomeVo.setUsername("热心市民");
         User user = userDao.getById(workHomeVo.getCreatorId());
         if (Objects.nonNull(user)) {
             //获取发布者头像
+            workHomeVo.setUsername("热心市民");
             workHomeVo.setAvatarImage(user.getAvatarImage());
+        }else {
+            workHomeVo.setAvatarImage("");
+            workHomeVo.setUsername("该用户已注销");
         }
         //查询评论数
         Integer count = evaluationDao.lambdaQuery().eq(Evaluation::getWorkId, workHomeVo.getId()).count();
@@ -156,11 +167,14 @@ public class WorkServiceImpl implements WorkService {
         List<WorkHomeVo> workHomeVos = new LinkedList<>();
         for (Work work:page.getRecords()) {
             WorkHomeVo workHomeVo = modelMapper.map(work, WorkHomeVo.class);
-            workHomeVo.setUsername("热心市民");
             User user = userDao.getById(workHomeVo.getCreatorId());
             if (Objects.nonNull(user)) {
                 //获取发布者头像
+                workHomeVo.setUsername("热心市民");
                 workHomeVo.setAvatarImage(user.getAvatarImage());
+            }else {
+                workHomeVo.setAvatarImage("");
+                workHomeVo.setUsername("该用户已注销");
             }
             //查询评论数
             Integer count = evaluationDao.lambdaQuery()

@@ -10,7 +10,6 @@ import com.snapshot.exception.ServiceException;
 import com.snapshot.pojo.Evaluation;
 import com.snapshot.pojo.PageList;
 import com.snapshot.pojo.User;
-import com.snapshot.pojo.Work;
 import com.snapshot.security.JwtUser;
 import com.snapshot.service.EvaluationService;
 import com.snapshot.utils.SecurityUtils;
@@ -18,7 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -68,6 +66,9 @@ public class EvaluationServiceImpl implements EvaluationService {
             if (!Objects.isNull(creator)) {
                 evaluationRowVo.setCommentator(creator.getUsername());
                 evaluationRowVo.setCommentatorAvatar(creator.getAvatarImage());
+            }else {
+                evaluationRowVo.setCommentator("该用户已注销");
+                evaluationRowVo.setCommentatorAvatar("");
             }
             evaluationRowVos.add(evaluationRowVo);
         });
@@ -87,6 +88,9 @@ public class EvaluationServiceImpl implements EvaluationService {
             if (!Objects.isNull(creator)) {
                 evaluationRowVo.setCommentator(creator.getUsername());
                 evaluationRowVo.setCommentatorAvatar(creator.getAvatarImage());
+            }else {
+                evaluationRowVo.setCommentator("该用户已注销");
+                evaluationRowVo.setCommentatorAvatar("");
             }
             evaluationRowVos.add(evaluationRowVo);
         });
@@ -104,6 +108,6 @@ public class EvaluationServiceImpl implements EvaluationService {
         if (!update) {
             throw new ServiceException("修改失败",400);
         }
-        return update;
+        return true;
     }
 }
