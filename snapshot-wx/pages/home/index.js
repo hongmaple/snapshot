@@ -14,7 +14,7 @@ Page({
     icons: [
       {
         icon: '../../images/i2.jpg',
-        name: '爆光台',
+        name: '曝光台',
         url: '../baoguantai/list',
       },
       {

@@ -16,11 +16,11 @@ App({
   globalData: {
     data: {},
     // 通用查询接口
-    http_api: "http://192.168.10.232:9501",
+    http_api: "http://127.0.0.1:9501",
     // 移动端接口  + md5.hex_md5("NGE3NJAWYWQXOGRHYTG3MZBJZJDHZDDJZDC5MWQZZJNKYTHMMTJLZJRIMZRIZJI0"),
-    mobile_api: "http://192.168.10.232:9501",
+    mobile_api: "http://127.0.0.1:9501",
     // 登录认证接口
-    member_api: "http://192.168.10.232:9501",
+    member_api: "http://127.0.0.1:9501",
     token: ''
   }
 })
