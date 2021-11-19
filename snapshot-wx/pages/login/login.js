@@ -6,8 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userName: 18976618156,
-    userPwd: 123456,
+    // userName: 18976618156,
+    // userPwd: 123456,
+    userName: null,
+    userPwd: null,
   },
 
 

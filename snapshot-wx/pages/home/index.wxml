@@ -18,7 +18,7 @@
 </view>
 
 
- <view class="index-row">
+ <!-- <view class="index-row">
   <view class="index-row-index">最新新闻</view>
   <view class="fabu-row">
     
@@ -35,9 +35,35 @@
 
 
   </view>
-</view>
+</view> -->
 
-
+<scroll-view class="news-item" scroll-y="true">
+<block wx:for="{{fabuData}}" wx:for-item="news">
+   <navigator url="../news/show?id={{news.id}}">
+   <view class="news-view">
+     <image src="{{news.thumb}}" wx:if="{{news.thumb!=''}}"/>
+     <view class="news-content">
+             <view class="news-title">
+             {{news.title}}
+             </view>           
+           <view class="pos">
+                <view class="news-time">{{news.inputtime}}</view>
+                <view class="fr">
+                  <view class="news-see">
+                  <image src="../../icons/see.png" />
+                  {{news.hits}}
+                  </view>
+                  <!-- <view class="news-pl">
+                  <image src="../../icons/message.png" />
+                  {{news.comments}}
+                  </view> -->
+                </view>
+            </view>
+     </view>
+   </view>
+   </navigator>
+   </block>
+</scroll-view>
 
 
 </view>

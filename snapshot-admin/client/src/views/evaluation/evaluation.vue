@@ -9,17 +9,17 @@
     </div>
     <div class="tables">
       <el-table :data="evaluationData.list" border style="width: 100%">
-        <el-table-column label="id" align="center" width="180">
+        <el-table-column label="id" align="center" width="100">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.id }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" align="center" width="350">
+        <el-table-column label="状态" align="center" width="150">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.status=='TO_AUDIT'? '待审核':(scope.row.status=='PASS'?'通过':(scope.row.status=='NO_PASS'?'不通过':'失效')) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="评论者" align="center" width="350">
+        <el-table-column label="评论者" align="center" width="250">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.commentator}}</span>
           </template>

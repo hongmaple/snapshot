@@ -8,9 +8,9 @@
 }
 .user-logo{
    position:absolute;
-top:50%;
-margin-top:-57rpx;
-right:70rpx;
+    top:50%;
+    margin-top:-57rpx;
+    right:0rpx;
 }
 .userInfo-warp{
     border-bottom: 1px solid #e7e7e7;

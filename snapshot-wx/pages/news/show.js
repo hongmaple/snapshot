@@ -24,7 +24,8 @@ Page({
           title: "强寒潮来袭，是在“啪啪打脸”全球变暖吗？",
           inputtime: "2021-11-08 13:30",
           name: "流年",
-          hits: 5
+          hits: 5,
+          comments: 100
         },
         {
           id: 2,
@@ -70,7 +71,8 @@ Page({
           title: "“湘潭大学和湖南师大，到底谁更厉害？数据告诉你一切",
           inputtime: "2021-11-09 10:30",
           name: "奕雪",
-          hits: 100
+          hits: 100,
+          comments: 100
         },
         {
           id: 3,
@@ -89,7 +91,8 @@ Page({
           title: "重庆商家推出火锅奶茶",
           inputtime: "2021-11-09 14:30",
           name: "Chan",
-          hits: 100000
+          hits: 100000,
+          comments: 1000
 
         },
       ]

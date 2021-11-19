@@ -7,6 +7,7 @@
  <text class="news-ctime">{{content.inputtime}}</text>
  <text class="news-local">{{content.name}}</text>
  <text class="news-count">浏览{{content.hits}}次</text>
+ <!-- <text class="news-count">评论{{content.comments}}次</text> -->
  </view>
 </view>
 
